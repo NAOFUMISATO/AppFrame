@@ -151,9 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DxUtility.h" />
     <ClInclude Include="GameBase.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyboardInput.h" />
+    <ClInclude Include="Matrix44.h" />
     <ClInclude Include="ModeBase.h" />
     <ClInclude Include="ModeFadeBase.h" />
     <ClInclude Include="ModeFadeIn.h" />
@@ -167,11 +169,15 @@
     <ClInclude Include="StateBaseRoot.h" />
     <ClInclude Include="StateServer.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Utility.h" />
+    <ClInclude Include="Vector4.h" />
     <ClInclude Include="XJoypadInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DxUtility.cpp" />
     <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Matrix44.cpp" />
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="ModeFade.cpp" />
     <ClCompile Include="PathServer.cpp" />
@@ -180,6 +186,8 @@
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="StateServer.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="Vector4.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="ModeServer.cpp" />
   </ItemGroup>
