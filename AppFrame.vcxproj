@@ -152,25 +152,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameBase.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="ModeBase.h" />
     <ClInclude Include="ModeFadeBase.h" />
     <ClInclude Include="ModeFadeIn.h" />
     <ClInclude Include="ModeFadeOut.h" />
     <ClInclude Include="ModeServer.h" />
+    <ClInclude Include="MouseInput.h" />
     <ClInclude Include="PathServer.h" />
     <ClInclude Include="ResourceLoadJson.h" />
     <ClInclude Include="ResourceServer.h" />
     <ClInclude Include="SoundServer.h" />
+    <ClInclude Include="StateBaseRoot.h" />
+    <ClInclude Include="StateServer.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="XJoypadInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameBase.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="ModeFade.cpp" />
     <ClCompile Include="PathServer.cpp" />
     <ClCompile Include="ResourceLoadJson.cpp" />
     <ClCompile Include="ResourceServer.cpp" />
     <ClCompile Include="SoundServer.cpp" />
+    <ClCompile Include="StateServer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="ModeServer.cpp" />

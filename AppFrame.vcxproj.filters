@@ -37,6 +37,24 @@
     <Filter Include="ヘッダー ファイル\Path">
       <UniqueIdentifier>{8cbae5ec-f763-423a-98a7-1c26cbaa6dda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\State">
+      <UniqueIdentifier>{d999da33-b877-4030-b3e2-1f701d1770d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\State">
+      <UniqueIdentifier>{7600470a-2589-4653-9844-fd898ab29176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Sound">
+      <UniqueIdentifier>{9f138845-25fc-4e9c-9c34-d491cba644eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sound">
+      <UniqueIdentifier>{60d49ff4-39a4-4faf-b554-13f74200cb30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Input">
+      <UniqueIdentifier>{eb65978e-0e62-42f4-80ec-a2145ca4ff87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Input">
+      <UniqueIdentifier>{f773928f-db0e-4124-8ec4-79a81cbefc63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -66,8 +84,14 @@
     <ClCompile Include="Texture.cpp">
       <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="StateServer.cpp">
+      <Filter>ソース ファイル\State</Filter>
+    </ClCompile>
     <ClCompile Include="SoundServer.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,8 +125,26 @@
     <ClInclude Include="Texture.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="StateBaseRoot.h">
+      <Filter>ヘッダー ファイル\State</Filter>
+    </ClInclude>
+    <ClInclude Include="StateServer.h">
+      <Filter>ヘッダー ファイル\State</Filter>
+    </ClInclude>
     <ClInclude Include="SoundServer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardInput.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseInput.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="XJoypadInput.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
