@@ -27,7 +27,7 @@ namespace AppFrame {
       class Texture;
       /**
        * \class 素材情報をJsonファイルから読み込むクラス
-       * \brief リソースサーバーに登録する素材情報をjsonファイルから読み込む
+       * \brief リソースサーバーに登録する素材情報及び各データをjsonファイルから読み込む
        */
       class LoadJson {
       public:
@@ -44,20 +44,34 @@ namespace AppFrame {
           * \brief jsonファイルから画像情報を読み込み、リソースサーバーに登録する
           * \param jsonFileName jsonファイル名
           */
-         void LoadTextures(const std::filesystem::path jsonFileName);
+         void LoadTextures(const std::filesystem::path jsonName);
          /**
           * \brief jsonファイルからモデル情報を読み込み、リソースサーバーに登録する
           * \param jsonFileName jsonファイル名
           */
-         void LoadModels(const std::filesystem::path jsonFileName);
+         void LoadModels(const std::filesystem::path jsonName);
          /**
           * \brief jsonファイルから音源情報を読み込み、リソースサーバーに登録する
           * \param jsonFileName jsonファイル名
           */
-         void LoadSounds(const std::filesystem::path jsonFileName);
+         void LoadSounds(const std::filesystem::path jsonName);
+         /**
+          * \brief jsonファイルから各データを連想配列に登録する
+          * \param jsonFileName jsonファイル名
+          */
+         void LoadParams(const std::filesystem::path jsonName);
+         /**
+          * \brief 連想配列に登録したデータを取得する
+          * \param jsonFileName jsonファイル名
+          * \param paramName データ名
+          * \return データ
+          */
+         template<typename T>
+         T GetParams(const std::filesystem::path jsonName,const std::filesystem::path paramName);
 
       private:
          Game::GameBase& _gameBase;   //!< ゲームベースの参照
+         std::unordered_map<std::string, std::unordered_map<std::string, double>> _params;   //!< 各データを登録する連想配列
       };
    }
 }
