@@ -15,7 +15,7 @@ namespace AppFrame {
     * \brief ÉäÉ\Å[ÉXä÷åW
     */
    namespace Resource {
-      Texture::Texture(std::string textureName, int allNum, int xNum, int yNum, int xSize, int ySize) :_textureName(textureName),
+      Texture::Texture(std::string_view textureName, int allNum, int xNum, int yNum, int xSize, int ySize) :_textureName(textureName),
          _allNum(allNum), _xNum(xNum), _yNum(yNum), _xSize(xSize), _ySize(ySize) {
       }
       Texture::Texture() {

@@ -1,12 +1,12 @@
 
 /*****************************************************************//**
- * \file   ResourceLoadJson.cpp
+ * \file   LoadJson.cpp
  * \brief  ëfçﬁèÓïÒÇJsonÉtÉ@ÉCÉãÇ©ÇÁì«Ç›çûÇﬁ
  *
  * \author NAOFUMISATO
  * \date   December 2021
  *********************************************************************/
-#include "ResourceLoadJson.h"
+#include "LoadJson.h"
 #include <nlohmann/json.hpp>
 #include <tuple>
 #include <string_view>
@@ -26,10 +26,10 @@ namespace AppFrame {
     */
    namespace Resource {
 
-      ResourceLoadJson::ResourceLoadJson(Game::GameBase& gameBase) :_gameBase{ gameBase } {
+      LoadJson::LoadJson(Game::GameBase& gameBase) :_gameBase{ gameBase } {
       };
 
-      void ResourceLoadJson::LoadTextures(const std::filesystem::path jsonFileName) {
+      void LoadJson::LoadTextures(const std::filesystem::path jsonFileName) {
          auto jsonDirectory = _gameBase.pathServer().GetPath("TextureJson");
          auto jsonPath = (jsonDirectory / jsonFileName).generic_string() + ".json";
          std::ifstream reading(jsonPath, std::ios::in);
@@ -64,7 +64,7 @@ namespace AppFrame {
          }
       }
 
-      void ResourceLoadJson::LoadModels(const std::filesystem::path jsonFileName) {
+      void LoadJson::LoadModels(const std::filesystem::path jsonFileName) {
          auto jsonDirectory = _gameBase.pathServer().GetPath("ModelJson");
          auto jsonPath = (jsonDirectory / jsonFileName).generic_string() + ".json";
          std::ifstream reading(jsonPath, std::ios::in);
@@ -91,7 +91,7 @@ namespace AppFrame {
          }
       }
 
-      void ResourceLoadJson::LoadSounds(const std::filesystem::path jsonFileName) {
+      void LoadJson::LoadSounds(const std::filesystem::path jsonFileName) {
          auto jsonDirectory = _gameBase.pathServer().GetPath("SoundJson");
          auto jsonPath = (jsonDirectory / jsonFileName).generic_string() + ".json";
          std::ifstream reading(jsonPath, std::ios::in);

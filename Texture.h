@@ -32,7 +32,7 @@ namespace AppFrame {
           * \param xSize 分割された画像一つの横サイズ
           * \param ySize 分割された画像一つの縦サイズ
           */
-         Texture(std::string textureName, int allNum, int xNum, int yNum, int xSize, int ySize);
+         Texture(std::string_view textureName, int allNum, int xNum, int yNum, int xSize, int ySize);
          /**
           * \brief コンストラクタ
           */
@@ -50,7 +50,7 @@ namespace AppFrame {
           * \brief ファイル名の設定
           * \param textureName
           */
-         inline void SetTextureName(std::string textureName) { _textureName = textureName; }
+         inline void SetTextureName(std::string_view textureName) { _textureName = textureName; }
          /**
           * \brief  DxLib::LoadDivGraphに必要な情報を返す
           * \return 画像の総分割数,画像の横分割数,画像の縦分割数,分割された画像一つの横サイズ,分割された画像一つの縦サイズ

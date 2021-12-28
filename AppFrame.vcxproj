@@ -172,7 +172,7 @@
     <ClInclude Include="ModeServer.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="PathServer.h" />
-    <ClInclude Include="ResourceLoadJson.h" />
+    <ClInclude Include="LoadJson.h" />
     <ClInclude Include="ResourceServer.h" />
     <ClInclude Include="SoundServer.h" />
     <ClInclude Include="StateBaseRoot.h" />
@@ -190,7 +190,7 @@
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="ModeFade.cpp" />
     <ClCompile Include="PathServer.cpp" />
-    <ClCompile Include="ResourceLoadJson.cpp" />
+    <ClCompile Include="LoadJson.cpp" />
     <ClCompile Include="ResourceServer.cpp" />
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="StateServer.cpp" />

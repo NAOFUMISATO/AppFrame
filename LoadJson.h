@@ -1,6 +1,6 @@
 
 /*****************************************************************//**
- * \file   ResourceLoadJson.h
+ * \file   LoadJson.h
  * \brief  素材情報をJsonファイルから読み込むクラス
  *
  * \author NAOFUMISATO
@@ -29,17 +29,17 @@ namespace AppFrame {
        * \class 素材情報をJsonファイルから読み込むクラス
        * \brief リソースサーバーに登録する素材情報をjsonファイルから読み込む
        */
-      class ResourceLoadJson {
+      class LoadJson {
       public:
          /**
           * \brief コンストラクタ
           * \param gameBase ゲームベースの参照
           */
-         ResourceLoadJson(Game::GameBase& gameBase);
+         LoadJson(Game::GameBase& gameBase);
          /**
           * \brief デフォルトデストラクタ
           */
-         ~ResourceLoadJson() = default;
+         ~LoadJson() = default;
          /**
           * \brief jsonファイルから画像情報を読み込み、リソースサーバーに登録する
           * \param jsonFileName jsonファイル名
@@ -59,9 +59,5 @@ namespace AppFrame {
       private:
          Game::GameBase& _gameBase;   //!< ゲームベースの参照
       };
-
-
-
    }
-
 }

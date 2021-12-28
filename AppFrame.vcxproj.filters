@@ -81,7 +81,7 @@
     <ClCompile Include="PathServer.cpp">
       <Filter>ソース ファイル\Path</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceLoadJson.cpp">
+    <ClCompile Include="LoadJson.cpp">
       <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
     <ClCompile Include="ResourceServer.cpp">
@@ -134,7 +134,7 @@
     <ClInclude Include="PathServer.h">
       <Filter>ヘッダー ファイル\Path</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceLoadJson.h">
+    <ClInclude Include="LoadJson.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ResourceServer.h">

@@ -10,10 +10,6 @@
   * \brief アプリケーションフレーム
   */
 namespace AppFrame {
-   //二重インクルード防止
-   namespace Input {
-      class InputManager;
-   }
    /**
     * \brief 状態関係
     */
@@ -37,7 +33,7 @@ namespace AppFrame {
           * \brief 入力処理
           * \param input 入力一括管理クラスの参照
           */
-         virtual void Input(Input::InputManager& input) {};
+         virtual void Input(class Input::InputManager& input) {};
          /**
           * \brief 更新処理
           */

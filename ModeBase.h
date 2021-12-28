@@ -15,12 +15,9 @@ namespace AppFrame {
    namespace Game {
       class GameBase;
    }
-   namespace Input {
-      class InputManager;
-   }
    namespace Resource {
       class ResourceServer;
-      class ResourceLoadJson;
+      class LoadJson;
    }
    namespace Sound {
       class SoundServer;
@@ -59,7 +56,7 @@ namespace AppFrame {
           * \brief 入力処理
           * \param input 入力一括管理クラスの参照
           */
-         virtual void Input(Input::InputManager& input) {};
+         virtual void Input(class Input::InputManager& input) {};
          /**
           * \brief 更新処理
           */
@@ -98,10 +95,10 @@ namespace AppFrame {
           * \param fadeType フェード時間を指定する文字
           */
          void fadeType(char fadeType) { _fadeType = fadeType; };
-         Resource::ResourceLoadJson& GetResJson()const { return _gameBase.resJson(); }
+         Resource::LoadJson& GetResJson() const { return _gameBase.resJson(); }
       protected:
          Game::GameBase& _gameBase;   //!< ゲームベースの参照
-         char _fadeType{ 'M' };         //!< フェード時間を指定する文字
+         char _fadeType{ 'M' };       //!< フェード時間を指定する文字
       };
    }
 }

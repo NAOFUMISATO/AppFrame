@@ -62,7 +62,7 @@ namespace AppFrame {
 
          _pathServer = std::make_unique<Path::PathServer>();
 
-         _resJson = std::make_unique<Resource::ResourceLoadJson>(*this);
+         _resJson = std::make_unique<Resource::LoadJson>(*this);
 
          return true;
       }

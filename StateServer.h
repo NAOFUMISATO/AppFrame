@@ -13,9 +13,6 @@
   * \brief アプリケーションフレーム
   */
 namespace AppFrame {
-   namespace Input {
-      class InputManager;
-   }
    /**
     * \brief 状態関係
     */
@@ -58,7 +55,7 @@ namespace AppFrame {
           * \brief 入力処理
           * \param input 入力一括管理クラスの参照
           */
-         void Input(Input::InputManager& input);
+         void Input(class Input::InputManager& input);
          /**
           * \brief 更新処理
           */
