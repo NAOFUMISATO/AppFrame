@@ -13,7 +13,7 @@
 #include "ResourceServer.h"
 #include "SoundServer.h"
 #include "PathServer.h"
-#include "ResourceLoadJson.h"
+#include "LoadJson.h"
  /**
   * \brief アプリケーションフレーム
   */

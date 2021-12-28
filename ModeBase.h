@@ -19,6 +19,9 @@ namespace AppFrame {
       class ResourceServer;
       class LoadJson;
    }
+   namespace Input {
+      class InputManager;
+   }
    namespace Sound {
       class SoundServer;
    }
@@ -56,7 +59,7 @@ namespace AppFrame {
           * \brief 入力処理
           * \param input 入力一括管理クラスの参照
           */
-         virtual void Input(class Input::InputManager& input) {};
+         virtual void Input(Input::InputManager& input) {};
          /**
           * \brief 更新処理
           */

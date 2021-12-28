@@ -13,6 +13,10 @@ namespace AppFrame {
    /**
     * \brief 状態関係
     */
+   // 二重インクルード防止
+   namespace Input {
+      class InputManager;
+   }
    namespace State {
       /**
        * \class 各状態基底クラス
@@ -33,7 +37,7 @@ namespace AppFrame {
           * \brief 入力処理
           * \param input 入力一括管理クラスの参照
           */
-         virtual void Input(class Input::InputManager& input) {};
+         virtual void Input(Input::InputManager& input) {};
          /**
           * \brief 更新処理
           */
