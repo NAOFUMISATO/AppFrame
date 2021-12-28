@@ -25,6 +25,18 @@
     <Filter Include="ヘッダー ファイル\Mode">
       <UniqueIdentifier>{e4c88beb-0155-43e2-bafb-d66c6c221f64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Path">
+      <UniqueIdentifier>{9a60158c-d954-453c-a2ca-2ab6253673aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource">
+      <UniqueIdentifier>{43ed8171-a523-44b5-9414-071b046c53db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource">
+      <UniqueIdentifier>{c834dc90-43e3-4059-906a-8e2d8b7292dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Path">
+      <UniqueIdentifier>{8cbae5ec-f763-423a-98a7-1c26cbaa6dda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -41,6 +53,18 @@
     </ClCompile>
     <ClCompile Include="ModeServer.cpp">
       <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="PathServer.cpp">
+      <Filter>ソース ファイル\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceLoadJson.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceServer.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +85,18 @@
     </ClInclude>
     <ClInclude Include="ModeServer.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="PathServer.h">
+      <Filter>ヘッダー ファイル\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceLoadJson.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceServer.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

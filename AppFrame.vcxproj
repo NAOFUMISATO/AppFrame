@@ -153,11 +153,19 @@
     <ClInclude Include="ModeFadeIn.h" />
     <ClInclude Include="ModeFadeOut.h" />
     <ClInclude Include="ModeServer.h" />
+    <ClInclude Include="PathServer.h" />
+    <ClInclude Include="ResourceLoadJson.h" />
+    <ClInclude Include="ResourceServer.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="ModeBase.cpp" />
     <ClCompile Include="ModeFade.cpp" />
+    <ClCompile Include="PathServer.cpp" />
+    <ClCompile Include="ResourceLoadJson.cpp" />
+    <ClCompile Include="ResourceServer.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="ModeServer.cpp" />
   </ItemGroup>
