@@ -1,7 +1,7 @@
 
 /*****************************************************************//**
  * \file   LoadJson.h
- * \brief  素材情報をJsonファイルから読み込むクラス
+ * \brief  ゲーム情報をJsonファイルから読み込むクラス
  *
  * \author NAOFUMISATO
  * \date   December 2021
@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <string_view>
 #include <filesystem>
+#include <nlohmann/json.hpp>
  /**
   * \brief アプリケーションフレーム
   */
@@ -26,7 +27,7 @@ namespace AppFrame {
       //二重インクルード防止
       class Texture;
       /**
-       * \class 素材情報をJsonファイルから読み込むクラス
+       * \class ゲーム情報をJsonファイルから読み込むクラス
        * \brief リソースサーバーに登録する素材情報及び各データをjsonファイルから読み込む
        */
       class LoadJson {
@@ -56,22 +57,15 @@ namespace AppFrame {
           */
          void LoadSounds(const std::filesystem::path jsonName);
          /**
-          * \brief jsonファイルから各データを連想配列に登録する
-          * \param jsonFileName jsonファイル名
-          */
-         void LoadParams(const std::filesystem::path jsonName);
-         /**
-          * \brief 連想配列に登録したデータを取得する
-          * \param jsonFileName jsonファイル名
+          * \brief jsonファイルからデータを取得する
+          * \param jsonName jsonファイル名
           * \param paramName データ名
           * \return データ
           */
-         template<typename T>
-         T GetParams(const std::filesystem::path jsonName,const std::filesystem::path paramName);
+         nlohmann::json GetParam(const std::filesystem::path jsonName, const std::string_view paramName);
 
       private:
          Game::GameBase& _gameBase;   //!< ゲームベースの参照
-         std::unordered_map<std::string, std::unordered_map<std::string, double>> _params;   //!< 各データを登録する連想配列
       };
    }
 }

@@ -7,7 +7,6 @@
  * \date   December 2021
  *********************************************************************/
 #include "LoadJson.h"
-#include <nlohmann/json.hpp>
 #include <tuple>
 #include <string_view>
 #include <stdexcept>
@@ -120,7 +119,7 @@ namespace AppFrame {
          }
       }
 
-      void LoadJson::LoadParams(const std::filesystem::path jsonName) {
+      nlohmann::json LoadJson::GetParam(const std::filesystem::path jsonName, const std::string_view paramName) {
          auto jsonDirectory = _gameBase.pathServer().GetPath("ParamJson");
          auto jsonPath = (jsonDirectory / jsonName).generic_string() + ".json";
          std::ifstream reading(jsonPath, std::ios::in);
@@ -139,21 +138,10 @@ namespace AppFrame {
          reading.close();
          auto paramArray = value[jsonName.generic_string()];
          for (auto& paramData : paramArray) {
-            for (auto& param : paramData)
-               _params[paramData].emplace(param);
+            auto param = paramData[paramName.data()];
+            return param;
          }
-      }
-
-      template<typename T>
-      T LoadJson::GetParams(const std::filesystem::path jsonName, const std::filesystem::path paramName) {
-         if (!_params.contains(jsonName.generic_string())) {
-            return -1;
-         }
-         if (!_params[jsonName.generic_string()].contains(paramName.generic_string())) {
-            return -1;
-         }
-         T param = _params[jsonName.generic_string()][paramName.generic_string()];
-         return param;
+         return -1;
       }
    }
 }

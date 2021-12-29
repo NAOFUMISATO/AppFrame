@@ -98,7 +98,11 @@ namespace AppFrame {
           * \param fadeType フェード時間を指定する文字
           */
          void fadeType(char fadeType) { _fadeType = fadeType; };
-         Resource::LoadJson& GetResJson() const { return _gameBase.resJson(); }
+         /**
+          * \brief jsonファイル管理クラスの参照をゲームベース経由で取得
+          * \return jsonファイル管理クラスの参照
+          */
+         Resource::LoadJson& GetLoadJson() const { return _gameBase.loadJson(); }
       protected:
          Game::GameBase& _gameBase;   //!< ゲームベースの参照
          char _fadeType{ 'M' };       //!< フェード時間を指定する文字

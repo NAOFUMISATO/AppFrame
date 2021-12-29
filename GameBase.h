@@ -119,6 +119,11 @@ namespace AppFrame {
           */
          Sound::SoundServer& soundServer() const { return *_soundServer; }
          /**
+          * \brief jsonファイル管理の参照を取得
+          * \return jsonファイル管理の参照
+          */
+         Resource::LoadJson& loadJson() const { return *_loadJson; }
+         /**
           * \brief ウィンドウモードに設定するか
           * \param _window_mode TRUEでウィンドウモードで実行、でなければフルスクリーンモードで実行
           */
@@ -133,7 +138,6 @@ namespace AppFrame {
           * \return 画面横サイズ、画面縦サイズ、画面ビット数
           */
          inline virtual std::tuple<int, int, int> GraphSize() { return { ScreenWidth,ScreenHeight,ScreenDepth }; }
-         Resource::LoadJson& resJson() const { return *_resJson; }
 
       protected:
          static GameBase* _gameInstance;        //!< ゲームのインスタンス
@@ -143,7 +147,7 @@ namespace AppFrame {
          std::unique_ptr<Input::InputManager> _inputManager;    //!< 入力の一括管理クラス
          std::unique_ptr<Path::PathServer> _pathServer;         //!< パスの一括管理クラス
          std::unique_ptr<Sound::SoundServer> _soundServer;      //!< サウンドの一括管理クラス
-         std::unique_ptr<Resource::LoadJson> _resJson;
+         std::unique_ptr<Resource::LoadJson> _loadJson;         //!< jsonファイル管理クラス
       };
    }
 }
