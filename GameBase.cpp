@@ -93,6 +93,7 @@ namespace AppFrame {
       }
 
       void GameBase::ShutDown() {
+         Effkseer_End();
          DxLib_End();
       }
 
