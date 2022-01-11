@@ -9,6 +9,8 @@
 #include <random>
 #include <algorithm>
 #include <cmath>
+#include <array>
+#include <string>
 #include "vector4.h"
 #include "utility.h"
 namespace {
@@ -38,7 +40,7 @@ namespace AppFrame {
       }
 
       // 矩形と線分の当たり判定
-      Collision Utility::CollisionPolygonLine(const Vector4& polygon_point0, const Vector4& polygon_point1,
+      collision Utility::CollisionPolygonLine(const Vector4& polygon_point0, const Vector4& polygon_point1,
          const Vector4& polygon_point2, const Vector4& polygon_point3,
          const Vector4& line_start, const Vector4& line_end) {
          // 平面の情報をセット
@@ -108,7 +110,7 @@ namespace AppFrame {
       }
 
       // 平面と線分の当たり判定
-      bool Utility::CollisionPlaneLine(const Plane& p, const Vector4& line_start, const Vector4& line_end, Collision& result) {
+      bool Utility::CollisionPlaneLine(const plane& p, const Vector4& line_start, const Vector4& line_end, collision& result) {
          const Vector4 plane_point = std::get<0>(p);
          const Vector4 plane_normal = std::get<1>(p);
          auto point_to_start = line_start - plane_point;
@@ -134,17 +136,78 @@ namespace AppFrame {
 
          return ret;
       }
-      bool Utility::CollisionSpherePoint(const Vector4& point, const Sphere& s)
-      {
-          auto [pos, radian] = s;
 
-          auto sphereFromPoint = pos - point;
+      unsigned int Utility::GetColorCode(unsigned char red, unsigned char green, unsigned char blue) {
+         std::array<unsigned char, 3> color = { red,green,blue };
+         std::string redCode;
+         std::string greenCode;
+         std::string blueCode;
+         for (int i = 0; i < 3; i++) {
+            std::string front;
+            auto div = color[i] / 16;
+            switch (div) {
+            default:
+               front = std::to_string(div);
+               break;
+            case 10:
+               front = "A";
+               break;
+            case 11:
+               front = "B";
+               break;
+            case 12:
+               front = "C";
+               break;
+            case 13:
+               front = "D";
+               break;
+            case 14:
+               front = "E";
+               break;
+            case 15:
+               front = "F";
+               break;
+            }
+            std::string back;
+            auto rem = color[i] % 16;
 
-          auto [x, y, z] = sphereFromPoint.GetXYZ();
+            switch (rem) {
+            default:
+               back = std::to_string(rem);
+               break;
+            case 10:
+               back = "A";
+               break;
+            case 11:
+               back = "B";
+               break;
+            case 12:
+               back = "C";
+               break;
+            case 13:
+               back = "D";
+               break;
+            case 14:
+               back = "E";
+               break;
+            case 15:
+               back = "F";
+               break;
+            }
 
-          auto checkSize = x * x + y * y + z * z;
-
-          return (checkSize) <= (radian * radian);
+            if (i == 0) {
+               redCode = front + back;
+            }
+            if (i == 1) {
+               greenCode = front + back;
+            }
+            if (i == 2) {
+               blueCode = front + back;
+            }
+         }
+         auto strCode = "0x" + redCode + greenCode + blueCode;
+         unsigned int colorCode = std::stoi(strCode, nullptr, 16);
+         return colorCode;
       }
    }
 }
