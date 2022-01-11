@@ -32,11 +32,13 @@ namespace AppFrame {
           * \param xSize 分割された画像一つの横サイズ
           * \param ySize 分割された画像一つの縦サイズ
           */
-         Texture(std::string_view textureName, int allNum, int xNum, int yNum, int xSize, int ySize);
+         Texture(std::string_view textureName, int allNum, int xNum, int yNum, int xSize, int ySize) :
+            _textureName(textureName),_allNum(allNum), _xNum(xNum), _yNum(yNum), _xSize(xSize), _ySize(ySize) {
+         };
          /**
           * \brief コンストラクタ
           */
-         Texture();
+         Texture() {};
          /**
           * \brief デフォルトデストラクタ
           */
@@ -45,7 +47,7 @@ namespace AppFrame {
           * \brief  ファイル名の取得
           * \return 画像ファイル名
           */
-         inline std::string_view GetTextureName() { return _textureName; }
+         inline std::string_view GetTextureName() const { return _textureName; }
          /**
           * \brief ファイル名の設定
           * \param textureName
@@ -55,7 +57,7 @@ namespace AppFrame {
           * \brief  DxLib::LoadDivGraphに必要な情報を返す
           * \return 画像の総分割数,画像の横分割数,画像の縦分割数,分割された画像一つの横サイズ,分割された画像一つの縦サイズ
           */
-         inline std::tuple<int, int, int, int, int> GetDivParams() { return { _allNum, _xNum,_yNum, _xSize, _ySize }; }
+         inline std::tuple<int, int, int, int, int> GetDivParams() const { return { _allNum, _xNum,_yNum, _xSize, _ySize }; }
          /**
           * \brief DxLib::LoadDivGraphに必要な情報の設定
           * \param divParams 画像の総分割数,画像の横分割数,画像の縦分割数,分割された画像一つの横サイズ,分割された画像一つの縦サイズ
@@ -67,12 +69,12 @@ namespace AppFrame {
          }
 
       private:
-         std::string _textureName; //!< ファイル名
-         int _allNum;              //!< 画像の総分割数
-         int _xNum;                //!< 画像の横分割数
-         int _yNum;                //!< 画像の縦分割数
-         int _xSize;               //!< 分割された画像一つの横サイズ
-         int _ySize;               //!< 分割された画像一つの縦サイズ
+         std::string _textureName{ "" };//!< ファイル名
+         int _allNum{ 0 };              //!< 画像の総分割数
+         int _xNum{ 0 };                //!< 画像の横分割数
+         int _yNum{ 0 };                //!< 画像の縦分割数
+         int _xSize{ 0 };               //!< 分割された画像一つの横サイズ
+         int _ySize{ 0 };               //!< 分割された画像一つの縦サイズ
       };
    }
 }

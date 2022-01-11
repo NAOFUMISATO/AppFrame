@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AppFrame.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="DxUtility.h" />
     <ClInclude Include="EffectBaseRoot.h" />
     <ClInclude Include="EffectServer.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="XJoypadInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="DxUtility.cpp" />
     <ClCompile Include="EffectBaseRoot.cpp" />
     <ClCompile Include="EffectServer.cpp" />
@@ -202,7 +204,6 @@
     <ClCompile Include="ResourceServer.cpp" />
     <ClCompile Include="SoundServer.cpp" />
     <ClCompile Include="StateServer.cpp" />
-    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Vector4.cpp" />
     <ClCompile Include="WinMain.cpp" />
