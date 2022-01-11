@@ -22,8 +22,10 @@ namespace AppFrame {
 
       class Vector4;
 
-      using plane = std::tuple<Vector4/*point*/, Vector4/*normal*/>;
-      using collision = std::tuple<bool, Vector4>;
+      using Plane = std::tuple<Vector4/*point*/, Vector4/*normal*/>;
+      using Sphere = std::tuple<Vector4 /*position*/, double/*radian*/>;
+      using Collision = std::tuple<bool, Vector4>;
+
       /**
        * \class 有用算術クラス
        * \brief 全て静的メンバで構成
@@ -69,7 +71,7 @@ namespace AppFrame {
          static float GetRandom(const float min, const float max);
 
          // 矩形と線分の当たり判定
-         static collision CollisionPolygonLine(const Vector4& polygonPoint0, const Vector4& polygonPoint1,
+         static Collision CollisionPolygonLine(const Vector4& polygonPoint0, const Vector4& polygonPoint1,
             const Vector4& polygonPoint2, const Vector4& polygonPoint3,
             const Vector4& lineStart, const Vector4& lineEnd);
 
@@ -79,17 +81,18 @@ namespace AppFrame {
          // 三角形と点の内外判定(point は必ず三角形と同平面である事)
          static bool InsideTrianglePoint(const Vector4& trianglePoint0, const Vector4& trianglePoint1,
             const Vector4& trianglePoint2, const Vector4& point);
-
          // 平面と線分の辺り判定
-         static bool CollisionPlaneLine(const plane& p, const Vector4& lineStart, const Vector4& lineEnd, collision& result);
-         /**
-          * \brief 指定したRGBのカラーコードの取得
-          * \param r 赤値
-          * \param g 緑値
-          * \param b 青値
-          * \return カラーコード
-          */
-         static unsigned int GetColorCode(unsigned char r, unsigned char g, unsigned char b);
+         static bool CollisionPlaneLine(const Plane& p, const Vector4& lineStart, const Vector4& lineEnd, Collision& result);
+         //球と点の当たり判定
+         static bool CollisionSpherePoint(const Vector4& point, const Sphere& s);
+        /**
+         * \brief 指定したRGBのカラーコードの取得
+         * \param r 赤値
+         * \param g 緑値
+         * \param b 青値
+         * \return カラーコード
+         */
+         unsigned int GetColorCode(unsigned char red, unsigned char green, unsigned char blue);
 
       private:
          Utility() = default;
