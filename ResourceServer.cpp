@@ -205,18 +205,18 @@ namespace AppFrame {
          auto& [handles, animes] = _models[key.data()];
 
 #ifndef _DEBUG
-         if (!animes.contains(key.data())) {
-            return -1;   // キーが未登録
+         if (!animes.contains(animName.data())) {
+             return -1;   // キーが未登録
          }
 #else
          try {
-            if (!animes.contains(key.data())) {
-               std::string message = key.data();
-               throw std::logic_error("----------キー[" + message + "]がアニメ情報コンテナに存在しませんでした。----------\n");
-            }
+             if (!animes.contains(animName.data())) {
+                 std::string message = animName.data();
+                 throw std::logic_error("----------キー[" + message + "]がアニメ情報コンテナに存在しませんでした。----------\n");
+             }
          }
          catch (std::logic_error& error) {
-            OutputDebugString(error.what());
+             OutputDebugString(error.what());
          }
 #endif
 
