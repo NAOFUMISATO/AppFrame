@@ -10,10 +10,20 @@
 #ifdef _DEBUG
 #include <stdexcept>
 #include <windows.h>
+#include <time.h>
+#include <DxLib.h>
+#include "Utility.h"
 #endif
 #include "ModeBaseRoot.h"
 #include "ModeFadeIn.h"
 #include "ModeFadeOut.h"
+
+namespace {
+   constexpr auto CountMax = 4294967295;   //!< _frameCountの型unsigned intの範囲
+   constexpr auto DrawFPSPosX = 0;
+   constexpr auto DrawFPSPosY = 0;
+   constexpr auto DrawFPSColor = 255;
+}
  /**
   * \brief アプリケーションフレーム
   */
@@ -23,8 +33,8 @@ namespace AppFrame {
     */
    namespace Mode {
       ModeServer::ModeServer(std::string_view key, std::shared_ptr<ModeBaseRoot> mode) {
-         Register("FadeIn", std::make_shared<ModeFadeIn>(mode->GetGameBase()));
-         Register("FadeOut", std::make_shared<ModeFadeOut>(mode->GetGameBase()));
+         Register("FadeIn", std::make_shared<ModeFadeIn>(mode->gameBase()));
+         Register("FadeOut", std::make_shared<ModeFadeOut>(mode->gameBase()));
          Register(key, mode);
          PushBack(key);           // 最初のシーンをプッシュバック
          PushBack("FadeIn");      // 最初のシーンの上にフェードインをプッシュバック
@@ -47,16 +57,16 @@ namespace AppFrame {
          try {
             if (!_modeRegistry.contains(key.data())) {
                std::string message = key.data();
-               throw std::logic_error("----------キー["+ message +"]がモードレジストリに存在しませんでした。----------\n");
+               throw std::logic_error("----------キー[" + message + "]がモードレジストリに存在しませんでした。----------\n");
             }
          }
          catch (std::logic_error& error) {
             OutputDebugString(error.what());
          }
 #endif
-         auto pushmode = _modeRegistry[key.data()];
-         pushmode->Enter();          // 指定のモードの入口処理を行う
-         _modeList.push_back(pushmode); // リストの末尾に指定のモードを追加する
+         auto pushMode = _modeRegistry[key.data()];
+         pushMode->Enter();          // 指定のモードの入口処理を行う
+         _modeList.push_back(pushMode); // リストの末尾に指定のモードを追加する
       }
 
       void ModeServer::PopBack() {
@@ -79,9 +89,9 @@ namespace AppFrame {
       }
 
       void ModeServer::GoToMode(std::string_view key, char fadeType) {
-         InsertBelowBack(key.data());  // 指定のモードを現モードの真下に挿入
-         FadeInsertBelowBack("FadeIn", fadeType);    // フェードインを現モードの真下に挿入（結果的に指定のモードの真上に挿入される）
-         FadePushBack("FadeOut", fadeType);          // フェードアウトを現モードの真上に挿入
+         InsertBelowBack(key.data());      // 指定のモードを現モードの真下に挿入
+         FadeInsertBelowBack(fadeType);    // フェードインを現モードの真下に挿入（結果的に指定のモードの真上に挿入される）
+         FadePushBack(fadeType);           // フェードアウトを現モードの真上に挿入
       }
 
       void ModeServer::InsertBelowBack(std::string_view key) {
@@ -100,9 +110,9 @@ namespace AppFrame {
             OutputDebugString(error.what());
          }
 #endif
-         auto insertmode = _modeRegistry[key.data()];
-         insertmode->Enter();   // 指定のモードの入口処理を行う
-         _modeList.insert(std::prev(_modeList.end()), insertmode);   // 指定のモードをリストの末尾分、後方に進んだ位置に挿入する
+         auto insertMode = _modeRegistry[key.data()];
+         insertMode->Enter();   // 指定のモードの入口処理を行う
+         _modeList.insert(std::prev(_modeList.end()), insertMode);   // 指定のモードをリストの末尾分、後方に進んだ位置に挿入する
       }
 
       std::shared_ptr<ModeBaseRoot> ModeServer::GetMode(std::string_view key) {
@@ -138,6 +148,8 @@ namespace AppFrame {
          catch (std::logic_error& error) {
             OutputDebugString(error.what());
          }
+
+         _fpsCount = clock();
 #endif
          _modeList.back()->Input(input);   //リストの末尾のモードのみ入力処理を回す
       }
@@ -158,23 +170,34 @@ namespace AppFrame {
          }
 #endif
          _modeList.back()->Update();   //リストの末尾のモードのみ更新処理を回す
+         
+         // カウントがunsigned intの範囲を超えるなら0にする
+         if (_frameCount >= CountMax) {
+            _frameCount = 0;
+         }
+         _frameCount++;   //ゲームのフレームを進める
       }
 
       void ModeServer::Render() const {
          for (auto&& mode : _modeList) {
             mode->Render();   //リストの全てのモードの描画処理を回す
          }
+#ifdef _DEBUG
+         auto nowCount = clock();
+         DrawFormatString(DrawFPSPosX, DrawFPSPosY, 
+            AppFrame::Math::Utility::GetColorCode(DrawFPSColor, DrawFPSColor, DrawFPSColor), "FPS : %d" , nowCount-_fpsCount);
+#endif
       }
 
-      void ModeServer::FadeInsertBelowBack(std::string_view key, char fadeType) {
+      void ModeServer::FadeInsertBelowBack(char fadeType) {
 #ifndef _DEBUG
-         if (!_modeRegistry.contains(key.data())) {
+         if (!_modeRegistry.contains("FadeIn")) {
             return;   // レジストリを走査し、指定のキー(フェード)がなければ返す
          }
 #else
          try {
-            if (!_modeRegistry.contains(key.data())) {
-               std::string message = key.data();
+            if (!_modeRegistry.contains("FadeIn")) {
+               std::string message = "FadeIn";
                throw std::logic_error("----------キー[" + message + "]がモードレジストリに存在しませんでした。----------\n");
             }
          }
@@ -182,21 +205,21 @@ namespace AppFrame {
             OutputDebugString(error.what());
          }
 #endif
-         auto insertmode = _modeRegistry[key.data()];
-         insertmode->fadeType(fadeType);     // フェード時間の設定
-         insertmode->Enter();                // 指定のモード(フェード)の入口処理
-         _modeList.insert(std::prev(_modeList.end()), insertmode);  // 指定のモード(フェード)をリストの末尾分、後方に進んだ位置に挿入する
+         auto insertMode = _modeRegistry["FadeIn"];
+         insertMode->fadeType(fadeType);     // フェード時間の設定
+         insertMode->Enter();                // 指定のモード(フェード)の入口処理
+         _modeList.insert(std::prev(_modeList.end()), insertMode);  // 指定のモード(フェード)をリストの末尾分、後方に進んだ位置に挿入する
       }
 
-      void ModeServer::FadePushBack(std::string_view key, char fadeType) {
+      void ModeServer::FadePushBack(char fadeType) {
 #ifndef _DEBUG
-         if (!_modeRegistry.contains(key.data())) {
+         if (!_modeRegistry.contains("FadeOut")) {
             return;   // レジストリを走査し、指定のキー(フェード)がなければ返す
          }
 #else
          try {
-            if (!_modeRegistry.contains(key.data())) {
-               std::string message = key.data();
+            if (!_modeRegistry.contains("FadeOut")) {
+               std::string message = "FadeOut";
                throw std::logic_error("----------キー[" + message + "]がモードレジストリに存在しませんでした。----------\n");
             }
          }
@@ -204,10 +227,10 @@ namespace AppFrame {
             OutputDebugString(error.what());
          }
 #endif
-         auto pushmode = _modeRegistry[key.data()];
-         pushmode->fadeType(fadeType);     // フェード時間の設定
-         pushmode->Enter();                // 指定のモード(フェード)入口処理
-         _modeList.push_back(pushmode);    // リストの末尾に指定のモード(フェード)を追加する
+         auto pushMode = _modeRegistry["FadeOut"];
+         pushMode->fadeType(fadeType);     // フェード時間の設定
+         pushMode->Enter();                // 指定のモード(フェード)入口処理
+         _modeList.push_back(pushMode);    // リストの末尾に指定のモード(フェード)を追加する
       }
    }
 }

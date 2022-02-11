@@ -23,6 +23,12 @@ namespace AppFrame {
    namespace Effect {
       class EffectServer;
    }
+   namespace Texture {
+      class TextureComponent;
+   }
+   namespace Sound {
+      class SoundComponent;
+   }
    /**
     * \brief オブジェクト関係
     */
@@ -107,10 +113,11 @@ namespace AppFrame {
           */
          Vector4 GetForward() const {
             auto vec = Vector4{ 0,0,1 };
-            vec.Normalized();
-            Matrix44 matrix;
-            matrix.RotateY(_rotation.GetY(), true);
-            return vec * matrix;
+            auto matrix = Matrix44();
+            matrix.RotateY(_rotation.GetY(), false);
+            auto forwardVec = vec * matrix;
+            forwardVec.Normalized();
+            return forwardVec;
          }
 
          /**
@@ -168,6 +175,16 @@ namespace AppFrame {
           * \return jsonファイル管理クラスの参照
           */
          AppFrame::Resource::LoadResourceJson& GetLoadJson() const;
+         /**
+          * \brief 画像描画クラスの参照をゲームベース経由で取得
+          * \return 画像描画クラスの参照
+          */
+         Texture::TextureComponent& GetTexComponent() const;
+         /**
+          * \brief サウンドコンポーネントの参照をゲームベース経由で取得
+          * \return サウンドコンポーネントの参照
+          */
+         Sound::SoundComponent& GetSoundComponent() const;
 
       protected:
          /**
@@ -180,24 +197,14 @@ namespace AppFrame {
           * \param state オブジェクトの状態
           */
          inline void objState(ObjectState state) { _objState = state; }
-         /**
-          * \brief ビルボードの描画を行う
-          * \param pos 描画位置
-          * \param size 描画サイズ(横方向のサイズ、縦方向は縦横比により決定)
-          * \param angle 描画角度
-          * \param handle 画像ハンドル
-          * \param animespeed アニメーションスピード(何フレームごとに画像を切り替えるか)
-          */
-         void DrawBillBoard(Vector4 pos,double size,double angle,std::vector<int> handle,int animeSpeed);
 
          ObjectState _objState{ ObjectState::Active }; //!< オブジェクトの種別変数
          std::unique_ptr<StateServer> _stateServer;    //!< 状態の一括管理クラスのポインタ
-         Game::GameBase& _gameBase;              //!< ゲーム本体クラスの参照
-         Matrix44 _worldTransform{ Matrix44() }; //!< ワ－ルド行列
-         Vector4 _position{ 0,0,0 };             //!< 位置
-         Vector4 _rotation{ 0,0,0 };             //!< 回転
-         Vector4 _scale{ 1,1,1 };                //!< 拡大率
-         int _cnt{ 0 };                          //!< ビルボードした画像のアニメーション用カウント
+         Game::GameBase& _gameBase;                    //!< ゲーム本体クラスの参照
+         Matrix44 _worldTransform{ Matrix44() };       //!< ワ－ルド行列
+         Vector4 _position{ 0,0,0 };                   //!< 位置
+         Vector4 _rotation{ 0,0,0 };                   //!< 回転
+         Vector4 _scale{ 1,1,1 };                      //!< 拡大率
       };
    }
 }

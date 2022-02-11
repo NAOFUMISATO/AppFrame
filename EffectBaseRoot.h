@@ -46,14 +46,14 @@ namespace AppFrame{
           */
          EffectBaseRoot(Game::GameBase& gameBase);
          /**
-          * \brief デストラクタ
+          * \brief デフォルトデストラクタ
           */
-         virtual ~EffectBaseRoot();
+         virtual ~EffectBaseRoot() = default;
+
          /**
-          * \brief 初期化及び_loadHandleにエフェクトハンドルを登録する
-          * \param key ResourceServerに登録済みの任意の文字列
+          * \brief 初期化処理
           */
-         virtual void Init(std::string_view key) {};
+         virtual void Init() {};
          /**
           * \brief 入力処理
           * \param input 入力一括管理クラスの参照
@@ -66,7 +66,7 @@ namespace AppFrame{
          /**
           * \brief 描画処理
           */
-         virtual void Draw() {};
+         virtual void Draw();
          /**
           * \brief 死亡判定を返す
           * \return 死亡状態ならtrue,でないならfalse
@@ -143,12 +143,12 @@ namespace AppFrame{
           * \brief エフェクトの色の取得
           * \return エフェクトの色
           */
-         inline Color::Color color() const { return _color; }
+         inline Data::Color color() const { return _color; }
          /**
           * \brief エフェクトの色(RGBA)を設定
           * \param color エフェクトを設定する色(RGBA)
           */
-         void SetEfcColor(Color::Color _color );
+         void SetEfcColor(Data::Color _color );
 
       protected:
          Game::GameBase& _gameBase;                    //!< ゲームベースの参照
@@ -159,7 +159,7 @@ namespace AppFrame{
          Math::Vector4 _position{ 0,0,0 };             //!< 位置
          Math::Vector4 _rotation{ 0,0,0 };             //!< 回転角
          Math::Vector4 _scale{ 1.0,1.0,1.0 };          //!< 拡大率
-         Color::Color _color{ Color::Color() };        //!< 色(RGBA)
+         Data::Color _color{ Data::Color() };          //!< 色(RGBA)
       };
    }
 } 

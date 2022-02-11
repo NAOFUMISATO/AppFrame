@@ -51,9 +51,9 @@ namespace AppFrame {
          axis_y.Normalized();
          axis_z.Normalized();
 
-         auto [xx, xy, xz] = axis_x.GetXYZ();
-         auto [yx, yy, yz] = axis_y.GetXYZ();
-         auto [zx, zy, zz] = axis_z.GetXYZ();
+         auto [xx, xy, xz] = axis_x.GetVec3();
+         auto [yx, yy, yz] = axis_y.GetVec3();
+         auto [zx, zy, zz] = axis_z.GetVec3();
 
          _rowColumn[0][0] = xx;
          _rowColumn[0][1] = yx;
@@ -123,7 +123,7 @@ namespace AppFrame {
       const Matrix44 Matrix44::operator +(const Vector4 rhs) const {
          MatrixArray result = _rowColumn;
 
-         auto [x, y, z] = rhs.GetXYZ();
+         auto [x, y, z] = rhs.GetVec3();
          result[3][0] += x;
          result[3][1] += y;
          result[3][2] += z;
@@ -201,11 +201,38 @@ namespace AppFrame {
             _rowColumn[1][1] = cos;
          }
          else {
-            MatrixArray array{ {{cos, sin, 0, 0}, {-sin, cos, 1, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}} };
+            MatrixArray array{ {{cos, sin, 0, 0}, {-sin, cos, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}} };
             Matrix44 rotZ(array);
 
             *this = *this * rotZ;
          }
+      }
+
+      void Matrix44::RotateAnyVec(const Vector4 vec, const double degree, bool make) {
+          auto anyVec = vec.Normalize();
+          auto [sin, cos] = GetSinCos(degree);
+          auto [x, y, z] = anyVec.GetVec3();
+
+          if (make) {
+              Unit();
+
+              _rowColumn[0][0] = x * x * (1 - cos) + cos;
+              _rowColumn[0][1] = x * y * (1 - cos) - z * sin;
+              _rowColumn[0][2] = x * z * (1 - cos) + y * sin;
+              _rowColumn[1][0] = y * x * (1 - cos) + z * sin;
+              _rowColumn[1][1] = y * y * (1 - cos) + cos;
+              _rowColumn[1][2] = y * z * (1 - cos) - x * sin;
+              _rowColumn[2][0] = z * x * (1 - cos) - y * sin;
+              _rowColumn[2][1] = z * y * (1 - cos) + x * sin;
+              _rowColumn[2][2] = z * z * (1 - cos) + cos;
+          }
+          else {
+              MatrixArray array{ {{x * x * (1 - cos) + cos, x * y * (1 - cos) - z * sin, x * z * (1 - cos) + y * sin, 0}, {y * x * (1 - cos) + z * sin, y * y * (1 - cos) + cos, y * z * (1 - cos) - x * sin, 0}, {z * x * (1 - cos) - y * sin, z * y * (1 - cos) + x * sin, z * z * (1 - cos) + cos, 0}, {0, 0, 0, 1}} };
+              Matrix44 rotAny(array);
+
+              *this = *this * rotAny;
+          }
+
       }
 
       const Matrix44 Matrix44::GetRotate() const {

@@ -4,7 +4,7 @@
 #include <vector>
 #include <unordered_map>
 /**
- * \brief プロジェクト名
+ * \brief アプリケーションフレーム
  */
 namespace AppFrame {
    /**
@@ -42,31 +42,39 @@ namespace AppFrame {
          void Clear();
          /**
           * \brief オブジェクトのVector4データをレジストリに登録する
-          * \param key オブジェクトに関連付ける任意の文字列
+          * \param key Vector4データに関連付ける任意の文字列
           * \param vec 登録するVector4データ
           */
-         void Register(std::string_view key, Vector4 vec);
+         void RegistVector(std::string_view key, Vector4 vecData);
+         /**
+          * \brief オブジェクトのdouble型データをレジストリに登録する
+          * \param key double型データに関連付ける任意の文字列
+          * \param doubleData 登録するdouble型データ
+          */
+         void RegistDouble(std::string_view key, double doubleData);
          /**
           * \brief オブジェクトの処理を回す動的配列を取得する
           */
          std::vector<std::unique_ptr<ObjectBaseRoot>>& runObjects() { return _runObjects; };
          /**
-          * \brief レジストリに登録したオブジェクトの位置を取得する
-          * \param key オブジェクトに関連付けた任意の文字列
-          * \return 登録したオブジェクトの位置
+          * \brief レジストリに登録したオブジェクトのVecto4データを取得する
+          * \param key オブジェクトのVecto4データに関連付けた任意の文字列
+          * \return 登録したVector4データ
           */
-         Vector4 GetPosition(std::string_view key);
+         Vector4 GetVecData(std::string_view key);
          /**
-          * \brief レジストリに登録したオブジェクトの回転角を取得する
-          * \param key オブジェクトに関連付けた任意の文字列
-          * \return 登録したオブジェクトの回転角
+          * \brief レジストリに登録したオブジェクトのdouble型データを取得する
+          * \param key double型データに関連付けた任意の文字列
+          * \return 登録したdoubleデータ
           */
-         Vector4 GetForward(std::string_view key);
+         double GetDoubleData(std::string_view key);
+
       private:
-         bool _updating{ false };   //!< 更新しているかのフラグ
+         bool _updating{ false };                                       //!< 更新しているかのフラグ
          std::vector<std::unique_ptr<ObjectBaseRoot>> _runObjects;      //!< オブジェクトの処理を回す用の動的配列
          std::vector<std::unique_ptr<ObjectBaseRoot>> _pendingObjects;  //!< 保留中のオブジェクトを登録しておく動的配列
-         std::unordered_map<std::string, Vector4> _objRegistry;         //!< オブジェクトのVector4データを登録しておく連想配列
+         std::unordered_map<std::string, Vector4> _objVecData;          //!< オブジェクトのVector4データを登録しておく連想配列
+         std::unordered_map<std::string, double> _objDoubleData;        //!< オブジェクトのdoubleデータを登録しておく連想配列
       };
    }
 }

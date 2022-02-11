@@ -23,13 +23,19 @@ namespace AppFrame {
       class InputManager;
    }
    namespace Sound {
-      class SoundServer;
+      class SoundComponent;
    }
    namespace Object {
       class ObjectServer;
    }
    namespace Effect {
       class EffectServer;
+   }
+   namespace Texture {
+      class TextureComponent;
+   }
+   namespace Sprite {
+      class SpriteServer;
    }
    /**
     * \brief モード関係
@@ -52,7 +58,7 @@ namespace AppFrame {
          /**
           * \brief デストラクタ
           */
-         virtual ~ModeBaseRoot();
+         virtual ~ModeBaseRoot()=default;
          /**
           * \brief 初期化処理
           */
@@ -83,7 +89,7 @@ namespace AppFrame {
           * \brief ゲームベースの参照を取得
           * \return ゲームベースの参照
           */
-         inline Game::GameBase& GetGameBase() const { return _gameBase; }
+         inline Game::GameBase& gameBase() const { return _gameBase; }
          /**
           * \brief モード一括管理クラスの参照をゲームベース経由で取得
           * \return モード管理クラスの参照
@@ -98,7 +104,7 @@ namespace AppFrame {
           * \brief 音源一括管理クラスの参照をゲームベース経由で取得
           * \return
           */
-         Sound::SoundServer& GetSoundServer() const;
+         Sound::SoundComponent& GetSoundServer() const;
          /**
           * \brief jsonファイル管理クラスの参照をゲームベース経由で取得
           * \return jsonファイル管理クラスの参照
@@ -115,14 +121,20 @@ namespace AppFrame {
           */
          Effect::EffectServer& GetEfcServer() const;
          /**
+          * \brief 画像簡易描画クラスの参照をゲームベース経由で取得
+          * \return 画像簡易描画クラスの参照
+          */
+         Texture::TextureComponent& GetTexComponent() const;
+         Sprite::SpriteServer& GetSprServer() const;
+         /**
           * \brief フェード時間の設定
           * \param fadeType フェード時間を指定する文字
           */
          inline void fadeType(char fadeType) { _fadeType = fadeType; };
 
       protected:
-         Game::GameBase& _gameBase;   //!< ゲームベースの参照
-         char _fadeType{ 'M' };       //!< フェード時間を指定する文字
+         Game::GameBase& _gameBase;     //!< ゲームベースの参照
+         char _fadeType{ 'M' };         //!< フェード時間を指定する文字
       };
    }
 }

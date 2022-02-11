@@ -1,6 +1,6 @@
 #pragma once
 /*****************************************************************//**
- * \file   SoundServer.h
+ * \file   SoundComponent.h
  * \brief  音源の一括管理クラス
  *
  * \author NAOFUMISATO
@@ -23,17 +23,17 @@ namespace AppFrame {
        * \class 音源の一括管理クラス
        * \brief 音源の再生、音量変更を行う
        */
-      class SoundServer {
+      class SoundComponent {
       public:
          /**
           * \brief コンストラクタ
           * \param appBase アプリケーションの基底クラスの参照
           */
-         SoundServer(Game::GameBase& appBase) :_gameBase{ appBase } {};
+         SoundComponent(Game::GameBase& appBase) :_gameBase{ appBase } {};
          /**
           * \brief デストラクタ
           */
-         virtual ~SoundServer() = default;
+         virtual ~SoundComponent() = default;
          /**
           * \brief 任意の文字列から音源を指定し、バックグラウンド再生を行う
           * \param key ResourceServerで登録済みの音源を関連付けた任意の文字列

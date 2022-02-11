@@ -14,8 +14,13 @@ namespace AppFrame {
       EffectBaseRoot::EffectBaseRoot(Game::GameBase& gameBase) :_gameBase{gameBase} {
       }
 
-      EffectBaseRoot::~EffectBaseRoot() {
-      };
+      void EffectBaseRoot::Draw() {
+         SetPosition(_position);
+         SetRotation(_rotation);
+         SetScale(_scale);
+         SetSpeed(_speed);
+         SetEfcColor(_color);
+      }
 
       void EffectBaseRoot::SetEffectLoadHandle(std::string_view key) {
          auto handle = _gameBase.resServer().GetEffectHandle(key);
@@ -40,7 +45,7 @@ namespace AppFrame {
 
       void EffectBaseRoot::SetPosition(Math::Vector4 pos){
          _position = pos;
-         auto [x, y, z] = _position.GetXYZ();
+         auto [x, y, z] = _position.GetVec3();
          auto cx = static_cast<float>(x);
          auto cy = static_cast<float>(y);
          auto cz = static_cast<float>(z);
@@ -49,7 +54,7 @@ namespace AppFrame {
 
       void EffectBaseRoot::SetRotation(Math::Vector4 rot) {
          _rotation = rot;
-         auto [x, y, z] = _rotation.GetXYZ();
+         auto [x, y, z] = _rotation.GetVec3();
          auto cx = static_cast<float>(x);
          auto cy = static_cast<float>(y);
          auto cz = static_cast<float>(z);
@@ -58,7 +63,7 @@ namespace AppFrame {
 
       void EffectBaseRoot::SetScale(Math::Vector4 sca) {
          _scale = sca;
-         auto [x, y, z] = _scale.GetXYZ();
+         auto [x, y, z] = _scale.GetVec3();
          auto cx = static_cast<float>(x);
          auto cy = static_cast<float>(y);
          auto cz = static_cast<float>(z);
@@ -78,7 +83,7 @@ namespace AppFrame {
          SetSpeedPlayingEffekseer3DEffect(_playHandle, cSpeed);
       }
 
-      void EffectBaseRoot::SetEfcColor(Color::Color color){
+      void EffectBaseRoot::SetEfcColor(Data::Color color){
          _color = color;
          auto [red, green, blue, alpha] = _color.GetColorA();
          SetColorPlayingEffekseer3DEffect(_playHandle, red, green, blue, alpha);

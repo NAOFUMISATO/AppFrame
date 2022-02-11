@@ -9,6 +9,8 @@
 #include "ModeBaseRoot.h"
 #include "ModeServer.h"
 #include "GameBase.h"
+#include "TextureComponent.h"
+#include "SpriteServer.h"
  /**
   * \brief アプリケーションフレーム
   */
@@ -20,11 +22,8 @@ namespace AppFrame {
       ModeBaseRoot::ModeBaseRoot(Game::GameBase& gameBase) :_gameBase{ gameBase } {
       };
 
-      ModeBaseRoot::~ModeBaseRoot() {
-      }
-
       Resource::LoadResourceJson& ModeBaseRoot::GetLoadJson() const{ 
-         return _gameBase.loadJson();
+         return _gameBase.loadresJson();
       }
 
       Mode::ModeServer& ModeBaseRoot::GetModeServer() const {
@@ -39,12 +38,20 @@ namespace AppFrame {
          return _gameBase.resServer(); 
       }
 
-      Sound::SoundServer& ModeBaseRoot::GetSoundServer() const {
-         return _gameBase.soundServer(); 
+      Sound::SoundComponent& ModeBaseRoot::GetSoundServer() const {
+         return _gameBase.soundComponent(); 
       }
 
       Effect::EffectServer& ModeBaseRoot::GetEfcServer() const {
          return _gameBase.efcServer();
+      }
+
+      Texture::TextureComponent& ModeBaseRoot::GetTexComponent() const {
+         return _gameBase.texComponent();
+      }
+
+      Sprite::SpriteServer& ModeBaseRoot::GetSprServer() const {
+         return _gameBase.sprServer();
       }
    }
 }

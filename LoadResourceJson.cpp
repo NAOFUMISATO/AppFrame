@@ -19,6 +19,8 @@
 #include "ResourceServer.h"
 #include "Vector4.h"
 #include "Texture.h"
+
+
  /**
   * \brief アプリケーションフレーム
   */

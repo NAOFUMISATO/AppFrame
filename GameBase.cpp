@@ -12,11 +12,13 @@
 #include "ModeServer.h"
 #include "InputManager.h"
 #include "ResourceServer.h"
-#include "SoundServer.h"
+#include "SoundComponent.h"
 #include "CurrentPathServer.h"
 #include "LoadResourceJson.h"
 #include "EffectServer.h"
 #include "ObjectServer.h"
+#include "TextureComponent.h"
+#include "SpriteServer.h"
  /**
   * \brief アプリケーションフレーム
   */
@@ -48,13 +50,16 @@ namespace AppFrame {
 
          // DirectX11を使用可(Effekseerを使用する為)
          SetUseDirect3DVersion(DX_DIRECT3D_11);
-
+        
          //エラーが起きたら直ちに終了
          if (DxLib_Init() == -1) {
             return false;
          }
-
+#ifndef _DEBUG
+         SetBackgroundColor(0, 0, 0);
+#else
          SetBackgroundColor(0, 0, 255);
+#endif
          //描画先を裏画面にセット
          SetDrawScreen(DX_SCREEN_BACK);
 
@@ -79,7 +84,7 @@ namespace AppFrame {
 
          _resServer = std::make_unique<Resource::ResourceServer>(*this);
 
-         _soundServer = std::make_unique<Sound::SoundServer>(*this);
+         _soundComponent = std::make_unique<Sound::SoundComponent>(*this);
 
          _pathServer = std::make_unique<Path::CurrentPathServer>();
 
@@ -88,6 +93,10 @@ namespace AppFrame {
          _efcServer = std::make_unique<Effect::EffectServer>();
 
          _objServer = std::make_unique<Object::ObjectServer>();
+
+         _texComponent = std::make_unique<Texture::TextureComponent>(*this);
+
+         _sprServer = std::make_unique <Sprite::SpriteServer>();
 
          return true;
       }

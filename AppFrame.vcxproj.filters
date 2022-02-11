@@ -73,14 +73,26 @@
     <Filter Include="ヘッダー ファイル\Object">
       <UniqueIdentifier>{31c94a4e-8c38-4c01-b9c8-ee86094ae978}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Color">
-      <UniqueIdentifier>{d393c3d5-fea6-4a3e-9033-2b4582f30018}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Color">
-      <UniqueIdentifier>{a135d2f8-6901-4063-ab44-1a48ecfb2d12}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Temp">
       <UniqueIdentifier>{5e51596f-f165-4c18-a9af-7de48c85d15b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Texture">
+      <UniqueIdentifier>{3b253a2d-9bec-445a-845c-f523d3fe8a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Texture">
+      <UniqueIdentifier>{6aa79114-f174-463c-a54f-bb992c775c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Data">
+      <UniqueIdentifier>{d393c3d5-fea6-4a3e-9033-2b4582f30018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Data">
+      <UniqueIdentifier>{a135d2f8-6901-4063-ab44-1a48ecfb2d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Sprite">
+      <UniqueIdentifier>{2cd421d2-eeaf-440e-9346-c2b52d1ec28f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sprite">
+      <UniqueIdentifier>{e9f192ee-045f-4937-9e0d-09d58a83f3fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +123,7 @@
     <ClCompile Include="StateServer.cpp">
       <Filter>ソース ファイル\State</Filter>
     </ClCompile>
-    <ClCompile Include="SoundServer.cpp">
+    <ClCompile Include="SoundComponent.cpp">
       <Filter>ソース ファイル\Sound</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
@@ -139,13 +151,22 @@
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
-      <Filter>ソース ファイル\Color</Filter>
+      <Filter>ソース ファイル\Data</Filter>
     </ClCompile>
     <ClCompile Include="ObjectServer.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="LoadParamJson.cpp">
       <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>ソース ファイル\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBaseRoot.cpp">
+      <Filter>ソース ファイル\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteServer.cpp">
+      <Filter>ソース ファイル\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,7 +206,7 @@
     <ClInclude Include="StateServer.h">
       <Filter>ヘッダー ファイル\State</Filter>
     </ClInclude>
-    <ClInclude Include="SoundServer.h">
+    <ClInclude Include="SoundComponent.h">
       <Filter>ヘッダー ファイル\Sound</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
@@ -228,13 +249,28 @@
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>ヘッダー ファイル\Color</Filter>
+      <Filter>ヘッダー ファイル\Data</Filter>
     </ClInclude>
     <ClInclude Include="LoadParamJson.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>ヘッダー ファイル\Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>ヘッダー ファイル\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>ヘッダー ファイル\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBaseRoot.h">
+      <Filter>ヘッダー ファイル\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteServer.h">
+      <Filter>ヘッダー ファイル\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>ヘッダー ファイル\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

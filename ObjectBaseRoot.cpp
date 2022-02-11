@@ -1,15 +1,19 @@
 
+/*****************************************************************//**
+ * \file   ObjectBaseRoot.cpp
+ * \brief  オブジェクトの基底の基底
+ * 
+ * \author NAOFUMISATO
+ * \date   February 2022
+ *********************************************************************/
 #include "ObjectBaseRoot.h"
 #include "GameBase.h"
 #include "ObjectServer.h"
 #include "StateServer.h"
 #include "DxUtility.h"
+#include "ModeServer.h"
+#include "TextureComponent.h"
 
-namespace {
-   constexpr auto BillBoardPosX = 0.5f;
-   constexpr auto BillBoardPosY = 1.0f;
-   constexpr auto BillBoardTransFlag = true;
-}
 namespace AppFrame {
    namespace Object {
 
@@ -20,9 +24,9 @@ namespace AppFrame {
       }
 
       void ObjectBaseRoot::ComputeWorldTransform() {
-         auto [sx, sy, sz] = _scale.GetXYZ();
-         auto [rx, ry, rz] = _rotation.GetXYZ();
-         auto [px, py, pz] = _position.GetXYZ();
+         auto [sx, sy, sz] = _scale.GetVec3();
+         auto [rx, ry, rz] = _rotation.GetVec3();
+         auto [px, py, pz] = _position.GetVec3();
          auto world = Matrix44();
          world.Scale(sx, sy, sz, true);
          world.RotateZ(rz, false);
@@ -40,20 +44,20 @@ namespace AppFrame {
          return _gameBase.efcServer();
       }
 
+      Texture::TextureComponent& ObjectBaseRoot::GetTexComponent() const {
+         return _gameBase.texComponent();
+      }
+
+      Sound::SoundComponent& ObjectBaseRoot::GetSoundComponent() const {
+         return _gameBase.soundComponent();
+      }
+
       AppFrame::Resource::LoadResourceJson& ObjectBaseRoot::GetLoadJson() const{
-         return _gameBase.loadJson();
+         return _gameBase.loadresJson();
       }
 
       void ObjectBaseRoot::stateServer(std::unique_ptr<StateServer> state) {
          _stateServer = std::move(state);
-      }
-
-      void ObjectBaseRoot::DrawBillBoard(AppFrame::Math::Vector4 pos, double size, double angle, std::vector<int> handle,int animeSpeed) {
-         _cnt++;
-         auto animeMax = handle.size();
-         auto animeNo = (_cnt / animeSpeed) % animeMax;
-         DrawBillboard3D(AppFrame::Math::ToDX(pos), BillBoardPosX, BillBoardPosY,
-            static_cast<float>(size), static_cast<float>(angle), handle[animeNo], BillBoardTransFlag);
       }
    }
 }

@@ -1,12 +1,12 @@
 
 /*****************************************************************//**
- * \file   SoundServer.cpp
+ * \file   SoundConponent.cpp
  * \brief  âπåπÇÃàÍäáä«óù
  *
  * \author NAOFUMISATO
  * \date   December 2021
  *********************************************************************/
-#include "SoundServer.h"
+#include "SoundComponent.h"
 #include <tuple>
 #include <DxLib.h>
 #include "ResourceServer.h"
@@ -19,20 +19,16 @@ namespace AppFrame {
     * \brief âπåπä÷åW
     */
    namespace Sound {
-      namespace {
-         constexpr auto HandleNo = 1;
-      }
 
-      void SoundServer::Play(std::string_view key) {
+      void SoundComponent::Play(std::string_view key) {
          Play(key, DX_PLAYTYPE_BACK);
       }
-      void SoundServer::PlayLoop(std::string_view key) {
+      void SoundComponent::PlayLoop(std::string_view key) {
          Play(key, DX_PLAYTYPE_LOOP);
       }
 
-      void SoundServer::ChangeVolume(std::string_view key, int changeVolume) {
-         auto soundinfo = _gameBase.resServer().GetSoundInfo(key);
-         auto& handle = std::get<HandleNo>(soundinfo);
+      void SoundComponent::ChangeVolume(std::string_view key, int changeVolume) {
+         auto&& [filename, handle, volume] = _gameBase.resServer().GetSoundInfo(key);
 
          if (handle != -1) {
             // ì«Ç›çûÇ›óLÇË
@@ -44,10 +40,8 @@ namespace AppFrame {
          }
       }
 
-      void SoundServer::Play(std::string_view key, int playType) {
-
-         auto res = _gameBase.resServer();
-         auto&& [filename, handle, volume] = res.GetSoundInfo(key);
+      void SoundComponent::Play(std::string_view key, int playType) {
+         auto&& [filename, handle, volume] = _gameBase.resServer().GetSoundInfo(key);
 
          if (handle != -1) {
             // ì«Ç›çûÇ›óLÇË
