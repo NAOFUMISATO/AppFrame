@@ -25,12 +25,6 @@ namespace AppFrame {
    namespace Sound {
       class SoundComponent;
    }
-   namespace Object {
-      class ObjectServer;
-   }
-   namespace Effect {
-      class EffectServer;
-   }
    namespace Texture {
       class TextureComponent;
    }
@@ -104,28 +98,17 @@ namespace AppFrame {
           * \brief 音源一括管理クラスの参照をゲームベース経由で取得
           * \return
           */
-         Sound::SoundComponent& GetSoundServer() const;
+         Sound::SoundComponent& GetSoundComponent() const;
          /**
           * \brief jsonファイル管理クラスの参照をゲームベース経由で取得
           * \return jsonファイル管理クラスの参照
           */
          Resource::LoadResourceJson& GetLoadJson() const;
          /**
-          * \brief オブジェクト一括管理クラスの参照をゲームベース経由で取得
-          * \return オブジェクト一括管理クラスの参照
-          */
-         Object::ObjectServer& GetObjServer() const;
-         /**
-          * \brief エフェクト一括管理クラスの参照をゲームベース経由で取得
-          * \return エフェクト一括管理クラスの参照
-          */
-         Effect::EffectServer& GetEfcServer() const;
-         /**
           * \brief 画像簡易描画クラスの参照をゲームベース経由で取得
           * \return 画像簡易描画クラスの参照
           */
          Texture::TextureComponent& GetTexComponent() const;
-         Sprite::SpriteServer& GetSprServer() const;
          /**
           * \brief フェード時間の設定
           * \param fadeType フェード時間を指定する文字

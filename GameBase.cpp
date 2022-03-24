@@ -15,10 +15,7 @@
 #include "SoundComponent.h"
 #include "CurrentPathServer.h"
 #include "LoadResourceJson.h"
-#include "EffectServer.h"
-#include "ObjectServer.h"
 #include "TextureComponent.h"
-#include "SpriteServer.h"
  /**
   * \brief アプリケーションフレーム
   */
@@ -62,7 +59,6 @@ namespace AppFrame {
 #endif
          //描画先を裏画面にセット
          SetDrawScreen(DX_SCREEN_BACK);
-
          // Effekseerの初期化
          if (Effekseer_Init(8000) == -1)
          {
@@ -90,13 +86,7 @@ namespace AppFrame {
 
          _loadresJson = std::make_unique<Resource::LoadResourceJson>(*this);
 
-         _efcServer = std::make_unique<Effect::EffectServer>();
-
-         _objServer = std::make_unique<Object::ObjectServer>();
-
          _texComponent = std::make_unique<Texture::TextureComponent>(*this);
-
-         _sprServer = std::make_unique <Sprite::SpriteServer>();
 
          return true;
       }
@@ -122,9 +112,11 @@ namespace AppFrame {
          }
          // 入力状態の更新
          _inputManager->Update();
+#ifdef _DEBUG
          if (_inputManager->GetKeyboard().EscClick()) {
             _gState = GameState::Quit;  // ESC押されたのでゲームを終了する
          }
+#endif
          _modeServer->Input(*_inputManager);    // モードサーバーの入力処理を実行
       }
 

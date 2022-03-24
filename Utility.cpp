@@ -26,19 +26,6 @@ namespace AppFrame {
     */
    namespace Math {
 
-      int Utility::GetRandom(const int min, const int max) {
-         std::uniform_int_distribution<> distr(min, max);
-         return distr(random);
-      }
-      double Utility::GetRandom(const double min, const double max) {
-         std::uniform_real_distribution<> distr(min, max);
-         return distr(random);
-      }
-      float Utility::GetRandom(const float min, const float max) {
-         std::uniform_real_distribution<> distr(min, max);
-         return static_cast<float>(distr(random));
-      }
-
       // 矩形と線分の当たり判定
       Collision Utility::CollisionPolygonLine(const Vector4& polygon_point0, const Vector4& polygon_point1,
          const Vector4& polygon_point2, const Vector4& polygon_point3,
@@ -239,7 +226,7 @@ namespace AppFrame {
 
           auto [l1Point, l1Direction] = l1;
           auto [l2Point, l2Direction] = l2;
-          //2直線が平行だったら点と直線の最短距離を返す
+          // 2直線が平行だったら点と直線の最短距離を返す
           if (l1Direction.Cross(l2Direction).Lenght() == 0.0) {
               double length = PointLineDistance(l1Point, l2, p2, t2);
               p1 = l1Point;
@@ -279,14 +266,14 @@ namespace AppFrame {
                   p1 = start1;
                   t1 = 0.0;
 
-                  std::clamp(t2, 0.0, 1.0);
+                  t2 = std::clamp(t2, 0.0, 1.0);
                   return length;
               }
           }
           else if (direction2.Lenght() <= 0.0) {
               double length = PointSegmentDistance(start2, s1, p1, t1);
               p2 = start2;
-              std::clamp(t1, 0.0, 1.0);
+              t1 = std::clamp(t1, 0.0, 1.0);
               t2 = 0.0;
               return length;
           }
@@ -309,21 +296,21 @@ namespace AppFrame {
               }
           }
           //垂線との交点が線分外にあった場合
-          std::clamp(t1, 0.0, 1.0);
+          t1 = std::clamp(t1, 0.0, 1.0);
           p1 = start1 + direction1 * t1;
           auto length = PointSegmentDistance(p1, s2, p2, t2);
           if (0.0 <= t2 && t2 <= 1.0) {
               return length;
           }
           //線分2の垂線との交点が外側にある
-          std::clamp(t2, 0.0, 1.0);
+          t2 = std::clamp(t2, 0.0, 1.0);
           p2 = start2 + direction2 * t2;
           length = PointSegmentDistance(p2, s1, p1, t1);
           if (0.0 <= t1 && t1 <= 1.0) {
               return length;
           }
           //
-          std::clamp(t1, 0.0, 1.0);
+          t1 = std::clamp(t1, 0.0, 1.0);
           p1 = start1 + direction1 * t1;
           return (p2 - p1).Lenght();
       }
@@ -399,6 +386,27 @@ namespace AppFrame {
          auto strCode = "0x" + redCode + greenCode + blueCode;
          unsigned int colorCode = std::stoi(strCode, nullptr, 16);
          return colorCode;
+      }
+
+      int Utility::GetRandom(const int min, const int max) {
+         std::uniform_int_distribution<> distr(min, max);
+         return distr(random);
+      }
+      double Utility::GetRandom(const double min, const double max) {
+         std::uniform_real_distribution<> distr(min, max);
+         return distr(random);
+      }
+      float Utility::GetRandom(const float min, const float max) {
+         std::uniform_real_distribution<> distr(min, max);
+         return static_cast<float>(distr(random));
+      }
+      Vector4 Utility::GetRandom(const Vector4 min, const Vector4 max) {
+         auto [minX, minY, minZ] = min.GetVec3();
+         auto [maxX, maxY, maxZ] = max.GetVec3();
+         auto randX = Utility::GetRandom(minX, maxX);
+         auto randY = Utility::GetRandom(minY, maxY);
+         auto randZ = Utility::GetRandom(minZ, maxZ);
+         return Vector4(randX, randY, randZ);
       }
    }
 }

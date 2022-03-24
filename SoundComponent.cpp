@@ -11,6 +11,7 @@
 #include <DxLib.h>
 #include "ResourceServer.h"
 #include "GameBase.h"
+#include "DxUtility.h"
  /**
   * \brief アプリケーションフレーム
   */
@@ -20,38 +21,55 @@ namespace AppFrame {
     */
    namespace Sound {
 
-      void SoundComponent::Play(std::string_view key) {
-         Play(key, DX_PLAYTYPE_BACK);
+      void SoundComponent::Play(std::string_view key, Math::Vector4 pos) {
+         Play(key, DX_PLAYTYPE_BACK,pos);
       }
-      void SoundComponent::PlayLoop(std::string_view key) {
-         Play(key, DX_PLAYTYPE_LOOP);
+      void SoundComponent::PlayLoop(std::string_view key, Math::Vector4 pos) {
+         Play(key, DX_PLAYTYPE_LOOP, pos);
       }
 
       void SoundComponent::ChangeVolume(std::string_view key, int changeVolume) {
-         auto&& [filename, handle, volume] = _gameBase.resServer().GetSoundInfo(key);
-
+         // サウンド再生に必要なデータの取得
+         auto&& [soundData, handle] = _gameBase.resServer().GetSoundInfo(key);
+         // 事前読み込みによりハンドルを作成しているか
          if (handle != -1) {
-            // 読み込み有り
-            ChangeVolumeSoundMem(changeVolume, handle);
+            ChangeVolumeSoundMem(changeVolume, handle);  // 音量の変更
          }
          else {
-            // 読み込み無し
-            SetVolumeMusic(changeVolume);
+            SetVolumeMusic(changeVolume);                // 音量の変更
          }
       }
 
-      void SoundComponent::Play(std::string_view key, int playType) {
-         auto&& [filename, handle, volume] = _gameBase.resServer().GetSoundInfo(key);
-
+      void SoundComponent::Stop(std::string_view key) {
+         // サウンド再生に必要なデータの取得
+         auto&& [soundData, handle] = _gameBase.resServer().GetSoundInfo(key);
+         // 事前読み込みによりハンドルを作成しているか
          if (handle != -1) {
-            // 読み込み有り
-            PlaySoundMem(handle, playType, TRUE);
-            ChangeVolumeSoundMem(volume, handle);
+            StopSoundMem(handle);   // 音源の停止
          }
          else {
-            // 読み込み無し
-            PlayMusic(filename.c_str(), playType);
-            SetVolumeMusic(volume);
+            StopMusic();            // 音源の停止
+         }
+      }
+
+      void SoundComponent::Play(std::string_view key, int playType, Math::Vector4 pos) {
+         // サウンド再生に必要なデータの取得
+         auto&& [soundData, handle] = _gameBase.resServer().GetSoundInfo(key);
+         auto fileName = soundData.fileName();
+         auto [volume, is3Dsound, radius] = soundData.GetSoundParams();
+         // 事前読み込みによりハンドルを作成しているか
+         if (handle != -1) {
+            // 3Dサウンドで読み込んでいるか
+            if (is3Dsound) {
+               Set3DPositionSoundMem(Math::ToDX(pos), handle);  // 3Dサウンドを再生する位置を設定
+               Set3DRadiusSoundMem(radius, handle);             // 3Dサウンドを再生した時の聞こえる距離を設定
+            }
+            PlaySoundMem(handle, playType, TRUE);               // 音源を再生
+            ChangeVolumeSoundMem(volume, handle);               // 音量の変更
+         }
+         else {
+            PlayMusic(fileName.data(), playType);               // 音源を再生
+            SetVolumeMusic(volume);                             // 音量の変更
          }
       }
    }

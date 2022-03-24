@@ -10,7 +10,6 @@
 #include "ModeServer.h"
 #include "GameBase.h"
 #include "TextureComponent.h"
-#include "SpriteServer.h"
  /**
   * \brief アプリケーションフレーム
   */
@@ -30,28 +29,16 @@ namespace AppFrame {
          return _gameBase.modeServer(); 
       }
 
-      Object::ObjectServer& ModeBaseRoot::GetObjServer() const {
-         return _gameBase.objServer(); 
-      }
-
       Resource::ResourceServer& ModeBaseRoot::GetResServer() const {
          return _gameBase.resServer(); 
       }
 
-      Sound::SoundComponent& ModeBaseRoot::GetSoundServer() const {
+      Sound::SoundComponent& ModeBaseRoot::GetSoundComponent() const {
          return _gameBase.soundComponent(); 
-      }
-
-      Effect::EffectServer& ModeBaseRoot::GetEfcServer() const {
-         return _gameBase.efcServer();
       }
 
       Texture::TextureComponent& ModeBaseRoot::GetTexComponent() const {
          return _gameBase.texComponent();
-      }
-
-      Sprite::SpriteServer& ModeBaseRoot::GetSprServer() const {
-         return _gameBase.sprServer();
       }
    }
 }

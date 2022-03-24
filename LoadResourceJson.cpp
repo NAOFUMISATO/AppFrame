@@ -13,7 +13,6 @@
 #include <stdexcept>
 #include <windows.h>
 #endif
-#include <fstream>
 #include "GameBase.h"
 #include "CurrentPathServer.h"
 #include "ResourceServer.h"
@@ -141,15 +140,19 @@ namespace AppFrame {
          // 音源を格納しているフォルダへのパスを、ゲーム本体側で定義したパスサーバーから取得する
          auto soundDirectory = _gameBase.pathServer().GetCurrentPath("Sound") / jsonName;
          // トップレベルの配列を全て回し、格納している音源情報を全て取り出す
-         for (auto& soundData : soundArray) {
-            const auto keyName = soundData["keyname"];   // キー
-            const auto fileName = soundData["filename"]; // ファイル名
-            const auto isLoad = soundData["isload"];     // 事前読み込みの有無
-            const auto volume = soundData["volume"];     // 初期音量
+         for (auto& soundParam : soundArray) {
+            const auto keyName = soundParam["keyname"];    // キー
+            const auto fileName = soundParam["filename"];  // ファイル名
+            const auto isLoad = soundParam["isload"];      // 事前読み込みの有無
+            const auto volume = soundParam["volume"];      // 初期音量
+            const auto is3Dsound = soundParam["is3Dsound"];// 3Dサウンド設定にするか
+            const auto radius = soundParam["radius"];      // 3Dサウンドの聞こえる距離
             // ファイルへのパスを形成
             const auto soundPath = (soundDirectory / fileName).generic_string();
-            // 取り出したキー及び音源へのファイルパスと事前読み込みの有無と初期音量のtuple型をResourceServerに登録する
-            _gameBase.resServer().LoadSound(keyName, std::make_tuple(soundPath, isLoad, volume));
+            // 音源データを作成
+            auto soundData = SoundData(soundPath, volume, is3Dsound, radius);
+            // 取り出したキー及び音源データと事前読み込みの有無のペアをResourceServerに登録する
+            _gameBase.resServer().LoadSound(keyName, std::make_pair(soundData, isLoad));
          }
       }
 
@@ -177,17 +180,18 @@ namespace AppFrame {
          reading.close();
          // トップレベルの配列のキーを、引数から指定し取り出す
          auto effectArray = value[jsonName.generic_string()];
-         // エフェクトを格納しているフォルダへのパスを、ゲーム本体側で定義したパスサーバーから取得する
-         auto effectDirectory = _gameBase.pathServer().GetCurrentPath("Effect") / jsonName;
          // トップレベルの配列を全て回し、格納しているエフェクト情報を全て取り出す
          for (auto& effectData : effectArray) {
             const auto keyName = effectData["keyname"];    // キー
             const auto fileName = effectData["filename"];  // ファイル名
             const auto scale = effectData["scale"];        // 初期拡大率
+            const auto speed = effectData["speed"];        // 初期再生速度
+            // エフェクトを格納しているフォルダへのパスを、ゲーム本体側で定義したパスサーバーから取得する
+            auto effectDirectory = _gameBase.pathServer().GetCurrentPath("Effect") / keyName;
             // ファイルへのパスを形成
             const auto effectPath = (effectDirectory / fileName).generic_string();
-            // 取り出したキー及びエフェクトへのファイルパスと初期拡大率のpair型をResourceServerに登録する
-            _gameBase.resServer().LoadEffect(keyName, std::make_pair(effectPath, scale));
+            // 取り出したキー及びエフェクトへのファイルパスと初期拡大率と初期再生速度のtuple型をResourceServerに登録する
+            _gameBase.resServer().LoadEffect(keyName, std::make_tuple(effectPath, scale, speed));
          }
       }
    }
