@@ -29,7 +29,7 @@ namespace AppFrame {
     * \brief ÉÇÅ[Éhä÷åWñºëOãÛä‘
     */
    namespace Mode {
-      ModeFadeBase::ModeFadeBase(Game::GameBase& gameBase) : ModeBaseRoot(gameBase){
+      ModeFadeBase::ModeFadeBase() {
       }
 
       void ModeFadeBase::Render() {
@@ -38,7 +38,7 @@ namespace AppFrame {
          SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
       }
 
-      ModeFadeIn::ModeFadeIn(Game::GameBase& gameBase) : ModeFadeBase(gameBase) {
+      ModeFadeIn::ModeFadeIn() {
       }
 
       void ModeFadeIn::Enter() {
@@ -60,11 +60,12 @@ namespace AppFrame {
          _alpha += _deltaAlpha;
          if (_alpha <= AlphaMin) {
             _alpha = AlphaMin;
-            GetModeServer().PopBack();
+            auto& modeServer = AppFrame::Mode::ModeServer::GetInstance();
+            modeServer.PopBack();
          }
       }
 
-      ModeFadeOut::ModeFadeOut(Game::GameBase& gameBase) : ModeFadeBase(gameBase) {
+      ModeFadeOut::ModeFadeOut() {
       }
 
       void ModeFadeOut::Enter() {
@@ -87,8 +88,9 @@ namespace AppFrame {
          _alpha += _deltaAlpha;
          if (_alpha >= AlphaMax) {
             _alpha = AlphaMax;
-            GetModeServer().PopBack();
-            GetModeServer().PopBack();
+            auto& modeServer = AppFrame::Mode::ModeServer::GetInstance();
+            modeServer.PopBack();
+            modeServer.PopBack();
          }
       }
 

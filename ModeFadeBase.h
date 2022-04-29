@@ -6,7 +6,7 @@
  * \author NAOFUMISATO
  * \date   November 2021
  *********************************************************************/
-#include "ModeBaseRoot.h"
+#include "ModeBase.h"
 /**
  * \brief アプリケーションフレーム
  */
@@ -19,13 +19,12 @@ namespace AppFrame {
        * \class モードのフェード基底クラス
        * \brief フェード用モードの基底クラス
        */
-      class ModeFadeBase :public ModeBaseRoot {
+      class ModeFadeBase :public ModeBase {
       public:
          /**
           * \brief コンストラクタ
-          * \param appBase アプリケーションフレーム基底クラスの参照
           */
-         ModeFadeBase(Game::GameBase& gameBase);
+         ModeFadeBase();
          /**
           * \brief 初期化処理
           */

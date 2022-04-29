@@ -7,7 +7,6 @@
  * \date   December 2021
  *********************************************************************/
 #pragma once
-#include <DxLib.h>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -20,9 +19,6 @@
   */
 namespace AppFrame {
    //二重インクルード防止
-   namespace Game {
-      class GameBase;
-   }
    namespace Math {
       class Vector4;
    }
@@ -41,9 +37,8 @@ namespace AppFrame {
       public:
          /**
           * \brief コンストラクタ
-          * \param gameBase ゲームベースの参照
           */
-         LoadResourceJson(Game::GameBase& gameBase);
+         LoadResourceJson();
          /**
           * \brief デフォルトデストラクタ
           */
@@ -70,7 +65,13 @@ namespace AppFrame {
          void LoadEffects(const std::filesystem::path jsonName);
 
       private:
-         Game::GameBase& _gameBase;   //!< ゲームベースの参照
+         /**
+          * \brief jsonファイルを開き、コピーしたオブジェクトを返す
+          * \param pathName ゲーム本体側で定義したファイルパスのキー名
+          * \param jsonName jsonファイル名
+          * \return nlohmann::json型のオブジェクト
+          */
+         nlohmann::json JsonSetUp(const std::string_view pathName, const std::filesystem::path jsonName);
       };
    }
 }

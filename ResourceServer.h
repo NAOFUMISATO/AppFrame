@@ -13,33 +13,31 @@
 #include <tuple>
 #include "Texture.h"
 #include "SoundData.h"
+#include "Singleton.h"
  /**
   * \brief アプリケーションフレーム
   */
 namespace AppFrame {
-   //二重インクルード防止
-   namespace Game {
-      class GameBase;
-   }
    /**
-    * @brief リソース関係
+    * \brief リソース関係
     */
    namespace Resource {
       /**
        * \class リソースの一括管理クラス
        * \brief リソースを読み込み、一括管理を行う
        */
-      class ResourceServer {
-      public:
+      class ResourceServer:public Temp::Singleton<ResourceServer> {
+      private:
          /**
           * \brief コンストラクタ
-          * \param gameBase ゲームベースクラスの参照
           */
-         ResourceServer(Game::GameBase& gameBase);
+         ResourceServer();
          /**
           * \brief デフォルトデストラクタ
           */
          virtual ~ResourceServer() = default;
+      public:
+         friend class Temp::Singleton<ResourceServer>;
          /**
           * \brief リソース初期化
           */
@@ -157,7 +155,6 @@ namespace AppFrame {
          virtual std::pair<int, double> GetEffectInfo(std::string_view key);
 
       private:
-         Game::GameBase& _gameBase;                                  //!< ゲームベースの参照
          std::unordered_map<std::string, 
             std::pair<Texture, std::vector<int>>> _textures;         //!< 画像データクラスと画像ハンドルの連想配列
          std::unordered_map<std::string,std::tuple<std::vector<int>,

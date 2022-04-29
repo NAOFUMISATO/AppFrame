@@ -8,7 +8,6 @@
  *********************************************************************/
 #include "TextureComponent.h"
 #include <DxLib.h>
-#include "GameBase.h"
 #include "ModeServer.h"
 #include "Vector4.h"
 #include "DxUtility.h"
@@ -21,7 +20,7 @@ namespace {
 namespace AppFrame {
 
    namespace Texture {
-      TextureComponent::TextureComponent(Game::GameBase& gameBase) :_gameBase(gameBase) {
+      TextureComponent::TextureComponent() {
       }
 
       void TextureComponent::DrawTexture(int x, int y, double scale, double angle, int handle) {
@@ -33,7 +32,8 @@ namespace AppFrame {
       }
 
       void TextureComponent::DrawTexture(int x, int y, double scale, double angle, std::vector<int> handles, int animeSpeed) {
-         auto count = _gameBase.modeServer().frameCount();
+         auto& modeServer = Mode::ModeServer::GetInstance();
+         auto count = modeServer.frameCount();
          auto animeMax = handles.size();
          auto animeNo = (count / animeSpeed) % animeMax;
          int width, height;
@@ -48,7 +48,8 @@ namespace AppFrame {
       }
 
       void TextureComponent::TransDrawTexture(int x, int y, int cx, int cy, double scale, double angle, std::vector<int> handles, int animeSpeed, bool transFlag, bool turnFrag) {
-         auto count = _gameBase.modeServer().frameCount();
+         auto& modeServer = Mode::ModeServer::GetInstance();
+         auto count = modeServer.frameCount();
          auto animeMax = handles.size();
          auto animeNo = (count / animeSpeed) % animeMax;
          DrawRotaGraph2(x, y, cx, cy, scale, angle, handles[animeNo], transFlag, turnFrag);
@@ -63,7 +64,8 @@ namespace AppFrame {
       }
 
       void TextureComponent::DrawBillBoard(Math::Vector4 pos,double scale, double angle, std::vector<int> handles, int animeSpeed) {
-         auto count = _gameBase.modeServer().frameCount();
+         auto& modeServer = Mode::ModeServer::GetInstance();
+         auto count = modeServer.frameCount();
          auto animeMax = handles.size();
          auto animeNo = (count / animeSpeed) % animeMax;
          int width, height;
@@ -82,7 +84,8 @@ namespace AppFrame {
       }
 
       void TextureComponent::TransDrawBillBoard(Math::Vector4 pos, double cx, double cy, double scale, double angle, std::vector<int> handles, int animeSpeed) {
-         auto count = _gameBase.modeServer().frameCount();
+         auto& modeServer = Mode::ModeServer::GetInstance();
+         auto count = modeServer.frameCount();
          auto animeMax = handles.size();
          auto animeNo = (count / animeSpeed) % animeMax;
          int width, height;

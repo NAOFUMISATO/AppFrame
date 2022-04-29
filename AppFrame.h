@@ -10,10 +10,9 @@
 
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
-#include "GameBase.h"
 #include "ResourceServer.h"
 #include "ModeServer.h"
-#include "ModeBaseRoot.h"
+#include "ModeBase.h"
 #include "Texture.h"
 #include "Matrix44.h"
 #include "Vector4.h"
@@ -26,8 +25,8 @@
 #include "InputManager.h"
 #include "LoadResourceJson.h"
 #include "Singleton.h"
-#include "LoadParamJson.h"
 #include "TextureComponent.h"
+#include "ParamBase.h"
 #include "Rect.h"
 #include "Color.h"
 #include "Triangle.h"

@@ -10,7 +10,6 @@
 #include <tuple>
 #include <DxLib.h>
 #include "ResourceServer.h"
-#include "GameBase.h"
 #include "DxUtility.h"
  /**
   * \brief アプリケーションフレーム
@@ -30,7 +29,8 @@ namespace AppFrame {
 
       void SoundComponent::ChangeVolume(std::string_view key, int changeVolume) {
          // サウンド再生に必要なデータの取得
-         auto&& [soundData, handle] = _gameBase.resServer().GetSoundInfo(key);
+         auto& resServerInstance = Resource::ResourceServer::GetInstance();
+         auto&& [soundData, handle] = resServerInstance.GetSoundInfo(key);
          // 事前読み込みによりハンドルを作成しているか
          if (handle != -1) {
             ChangeVolumeSoundMem(changeVolume, handle);  // 音量の変更
@@ -42,7 +42,8 @@ namespace AppFrame {
 
       void SoundComponent::Stop(std::string_view key) {
          // サウンド再生に必要なデータの取得
-         auto&& [soundData, handle] = _gameBase.resServer().GetSoundInfo(key);
+         auto& resServerInstance = Resource::ResourceServer::GetInstance();
+         auto&& [soundData, handle] = resServerInstance.GetSoundInfo(key);
          // 事前読み込みによりハンドルを作成しているか
          if (handle != -1) {
             StopSoundMem(handle);   // 音源の停止
@@ -54,7 +55,8 @@ namespace AppFrame {
 
       void SoundComponent::Play(std::string_view key, int playType, Math::Vector4 pos) {
          // サウンド再生に必要なデータの取得
-         auto&& [soundData, handle] = _gameBase.resServer().GetSoundInfo(key);
+         auto& resServerInstance = Resource::ResourceServer::GetInstance();
+         auto&& [soundData, handle] = resServerInstance.GetSoundInfo(key);
          auto fileName = soundData.fileName();
          auto [volume, is3Dsound, radius] = soundData.GetSoundParams();
          // 事前読み込みによりハンドルを作成しているか

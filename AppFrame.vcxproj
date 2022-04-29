@@ -72,23 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\..\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\..\DxLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\DxLib;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\DxLib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\..\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\..\DxLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\DxLib;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\DxLib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\..\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\..\DxLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\DxLib;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\DxLib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\..\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\..\DxLib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\DxLib;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\DxLib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -162,12 +162,10 @@
     <ClInclude Include="AppFrame.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="DxUtility.h" />
-    <ClInclude Include="GameBase.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyboardInput.h" />
-    <ClInclude Include="LoadParamJson.h" />
     <ClInclude Include="Matrix44.h" />
-    <ClInclude Include="ModeBaseRoot.h" />
+    <ClInclude Include="ModeBase.h" />
     <ClInclude Include="ModeFadeBase.h" />
     <ClInclude Include="ModeFadeIn.h" />
     <ClInclude Include="ModeFadeOut.h" />
@@ -175,6 +173,7 @@
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="CurrentPathServer.h" />
     <ClInclude Include="LoadResourceJson.h" />
+    <ClInclude Include="ParamBase.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="ResourceServer.h" />
     <ClInclude Include="SoundData.h" />
@@ -192,21 +191,18 @@
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="DxUtility.cpp" />
-    <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="LoadParamJson.cpp" />
     <ClCompile Include="Matrix44.cpp" />
-    <ClCompile Include="ModeBaseRoot.cpp" />
     <ClCompile Include="ModeFade.cpp" />
     <ClCompile Include="CurrentPathServer.cpp" />
     <ClCompile Include="LoadResourceJson.cpp" />
+    <ClCompile Include="ParamBase.cpp" />
     <ClCompile Include="ResourceServer.cpp" />
     <ClCompile Include="TextureComponent.cpp" />
     <ClCompile Include="SoundComponent.cpp" />
     <ClCompile Include="StateServer.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Vector4.cpp" />
-    <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="ModeServer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -214,14 +210,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets')" />
     <Import Project="packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets" Condition="Exists('packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets')" />
+    <Import Project="..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets'))" />
     <Error Condition="!Exists('packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.10.4\build\native\nlohmann.json.targets'))" />
   </Target>
 </Project>

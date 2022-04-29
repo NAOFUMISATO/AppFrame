@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Game">
-      <UniqueIdentifier>{ef30a381-be92-48e3-b096-a02354bb0dba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game">
-      <UniqueIdentifier>{00798dde-5a1c-4728-8444-edc102259cd1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Mode">
       <UniqueIdentifier>{64dbcd23-0dca-4043-8855-f02aa4eeb660}</UniqueIdentifier>
     </Filter>
@@ -76,17 +70,14 @@
     <Filter Include="ソース ファイル\Data">
       <UniqueIdentifier>{a135d2f8-6901-4063-ab44-1a48ecfb2d12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Param">
+      <UniqueIdentifier>{2a728335-7fb1-4ba5-ad44-c9960fe1d6da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Param">
+      <UniqueIdentifier>{ef09c690-fc39-402d-9e52-4bab12f6f378}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WinMain.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="GameBase.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ModeBaseRoot.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="ModeFade.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
@@ -126,18 +117,15 @@
     <ClCompile Include="Color.cpp">
       <Filter>ソース ファイル\Data</Filter>
     </ClCompile>
-    <ClCompile Include="LoadParamJson.cpp">
-      <Filter>ソース ファイル\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="TextureComponent.cpp">
       <Filter>ソース ファイル\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="ParamBase.cpp">
+      <Filter>ソース ファイル\Param</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameBase.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ModeBaseRoot.h">
+    <ClInclude Include="ModeBase.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="ModeFadeBase.h">
@@ -159,9 +147,6 @@
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ResourceServer.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
     <ClInclude Include="StateBaseRoot.h">
@@ -203,9 +188,6 @@
     <ClInclude Include="Color.h">
       <Filter>ヘッダー ファイル\Data</Filter>
     </ClInclude>
-    <ClInclude Include="LoadParamJson.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>ヘッダー ファイル\Temp</Filter>
     </ClInclude>
@@ -220,6 +202,12 @@
     </ClInclude>
     <ClInclude Include="SoundData.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamBase.h">
+      <Filter>ヘッダー ファイル\Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

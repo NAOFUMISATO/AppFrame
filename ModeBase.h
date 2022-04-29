@@ -1,20 +1,18 @@
 #pragma once
 /*****************************************************************//**
- * \file   ModeBaseRoot.h
- * \brief  モード基底クラスの基底クラス
+ * \file   ModeBase.h
+ * \brief  モード基底クラス
  *
  * \author NAOFUMISATO
  * \date   October 2021
  *********************************************************************/
 #include <memory>
+#include "ParamBase.h"
  /**
   * \brief アプリケーションフレーム
   */
 namespace AppFrame {
    // 二重インクルード防止
-   namespace Game {
-      class GameBase;
-   }
    namespace Resource {
       class ResourceServer;
       class LoadResourceJson;
@@ -42,17 +40,12 @@ namespace AppFrame {
        * \brief ModeServerに登録するモードの基底クラス
        *        このクラスを継承してモードを定義する
        */
-      class ModeBaseRoot {
+      class ModeBase {
       public:
          /**
           * \brief コンストラクタ
-          * \param appBase ゲームベースの参照
           */
-         ModeBaseRoot(Game::GameBase& gameBase);
-         /**
-          * \brief デストラクタ
-          */
-         virtual ~ModeBaseRoot()=default;
+         ModeBase() {};
          /**
           * \brief 初期化処理
           */
@@ -80,44 +73,14 @@ namespace AppFrame {
          virtual void Exit() {};
 
          /**
-          * \brief ゲームベースの参照を取得
-          * \return ゲームベースの参照
-          */
-         inline Game::GameBase& gameBase() const { return _gameBase; }
-         /**
-          * \brief モード一括管理クラスの参照をゲームベース経由で取得
-          * \return モード管理クラスの参照
-          */
-         ModeServer& GetModeServer() const;
-         /**
-          * \brief リソース一括管理クラスの参照をゲームベース経由で取得
-          * \return リソース一括管理クラスの参照
-          */
-         Resource::ResourceServer& GetResServer() const;
-         /**
-          * \brief 音源一括管理クラスの参照をゲームベース経由で取得
-          * \return
-          */
-         Sound::SoundComponent& GetSoundComponent() const;
-         /**
-          * \brief jsonファイル管理クラスの参照をゲームベース経由で取得
-          * \return jsonファイル管理クラスの参照
-          */
-         Resource::LoadResourceJson& GetLoadJson() const;
-         /**
-          * \brief 画像簡易描画クラスの参照をゲームベース経由で取得
-          * \return 画像簡易描画クラスの参照
-          */
-         Texture::TextureComponent& GetTexComponent() const;
-         /**
           * \brief フェード時間の設定
           * \param fadeType フェード時間を指定する文字
           */
-         inline void fadeType(char fadeType) { _fadeType = fadeType; };
+         inline void fadeType(char fadeType) { _fadeType = fadeType; }
 
       protected:
-         Game::GameBase& _gameBase;     //!< ゲームベースの参照
-         char _fadeType{ 'M' };         //!< フェード時間を指定する文字
+         std::unique_ptr<Param::ParamBase> _param; //!< 値管理用クラスのポインタ
+         char _fadeType{ 'M' };                    //!< フェード時間を指定する文字
       };
    }
 }

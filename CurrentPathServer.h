@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <memory>
 #include <utility>
+#include "Singleton.h"
  /**
   * \brief アプリケーションフレーム
   */
@@ -22,12 +23,8 @@ namespace AppFrame {
        * \class ファイルパス一括管理クラス
        * \brief ファイルパスの登録、取得を行う
        */
-      class CurrentPathServer {
-      public:
-         /**
-          * \brief 任意の文字列をキーにしてファイルパスを管理
-          */
-         using CurrentPathMap = std::unordered_map<std::string, std::filesystem::path>;
+      class CurrentPathServer :public Temp::Singleton<CurrentPathServer> {
+      private:
          /**
           * \brief コンストラクタ
           */
@@ -36,14 +33,17 @@ namespace AppFrame {
           * \brief デストラクタ
           */
          virtual ~CurrentPathServer() = default;
+      public:
+         friend class Temp::Singleton<CurrentPathServer>;
+         using CurrentPathMap = std::unordered_map<std::string, std::filesystem::path>;
          /**
           * \brief 初期化処理
           */
-         virtual void Init();
+         void Init();
          /**
           * \brief コンテナの解放
           */
-         virtual void Clear();
+         void Clear();
          /**
           * \brief ファイルパスの一括登録
           * \param pathMap ファイルパスマップ
